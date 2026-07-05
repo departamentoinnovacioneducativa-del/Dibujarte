@@ -12,7 +12,7 @@ let currentTemplate = null;
 let currentCategory = 'animales';
 let currentSticker = '⭐';
 
-// ============ SONIDOS Y VOZ (ACCESIBILIDAD INFANTIL) ============
+// ============ SONIDOS Y VOZ ============
 let audioCtx;
 function playSound(freq = 800, duration = 0.1) {
   try {
@@ -48,27 +48,42 @@ const colors = [
 
 const leftPencils = document.getElementById('leftPencils');
 const rightPencils = document.getElementById('rightPencils');
+const mobilePencils = document.getElementById('mobilePencils');
 
 colors.forEach((color, i) => {
+  // Lápiz Escritorio
   const pencil = document.createElement('div');
   pencil.className = 'pencil ' + (i < 10 ? 'left' : 'right');
   if (i === 0) pencil.classList.add('active');
   pencil.style.setProperty('--p-color', color);
   pencil.dataset.color = color;
-  
   pencil.innerHTML = `<div class="pencil-tip"></div><div class="pencil-body"></div><div class="pencil-metal"></div><div class="pencil-eraser"></div>`;
   
-  pencil.addEventListener('click', () => {
-    document.querySelectorAll('.pencil').forEach(p => p.classList.remove('active'));
-    pencil.classList.add('active');
-    currentColor = color;
-    updateActiveColorDisplay();
-    playSound(600, 0.05);
-  });
+  pencil.addEventListener('click', () => selectColor(color, pencil));
   
   if (i < 10) leftPencils.appendChild(pencil);
   else rightPencils.appendChild(pencil);
+
+  // Lápiz Móvil
+  const mobPencil = document.createElement('div');
+  mobPencil.className = 'pencil mobile';
+  mobPencil.style.setProperty('--p-color', color);
+  mobPencil.style.transform = 'scale(0.7)';
+  mobPencil.style.margin = '-5px';
+  if (i === 0) mobPencil.classList.add('active');
+  mobPencil.dataset.color = color;
+  mobPencil.innerHTML = `<div class="pencil-tip"></div><div class="pencil-body"></div><div class="pencil-metal"></div><div class="pencil-eraser"></div>`;
+  mobPencil.addEventListener('click', () => selectColor(color, mobPencil));
+  mobilePencils.appendChild(mobPencil);
 });
+
+function selectColor(color, element) {
+  document.querySelectorAll('.pencil').forEach(p => p.classList.remove('active'));
+  element.classList.add('active');
+  currentColor = color;
+  updateActiveColorDisplay();
+  playSound(600, 0.05);
+}
 
 function updateActiveColorDisplay() {
   document.getElementById('sizePreview').style.background = currentColor;
