@@ -26,7 +26,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end; /* Empuja el contenido hacia abajo */
+  padding-bottom: 8vh; /* Lo separa del borde inferior */
   overflow: hidden;
   background: #FFC2D1;
 }
@@ -54,9 +55,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40vh; /* Esto empuja el corazón hacia abajo */
+  margin-bottom: 0;
 }
-.welcome-heart:active { transform: scale(0.75); }
+.welcome-heart:active { transform: scale(0.85); }
 
 .tap-text {
   font-family: 'Bubblegum Sans', cursive;
