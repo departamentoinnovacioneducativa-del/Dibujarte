@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Pinturitas - ¡Dibuja y Colorea!</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
@@ -11,28 +11,22 @@
 </head>
 <body class="text-gray-800">
 
-<!-- Fondos decorativos -->
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
-
-<!-- Header con Banner, Colores y Pegatinas -->
-<header class="relative z-20 pt-4 pb-2 px-4 flex flex-col items-center gap-3">
-  <img src="Min.png" alt="Banner Pinturitas" class="banner-img w-full max-w-3xl rounded-2xl shadow-lg mb-2">
+<!-- Contenedor Principal Flex (Ocupa toda la pantalla) -->
+<div class="app-container">
   
-  <!-- Colores (3 filas de 4) y Pegatinas (2 filas de 3) compactos -->
-  <div class="panel p-2 flex flex-col items-center gap-2 w-full max-w-[180px]">
-    <div id="colorGrid" class="grid grid-cols-4 gap-1.5 w-full"></div>
-    <div class="w-full h-px bg-gray-200"></div>
-    <div id="stickerGrid" class="grid grid-cols-3 gap-1.5 w-full"></div>
+  <!-- 1. Banner (Arriba) -->
+  <header class="app-header">
+    <img src="Min.png" alt="Banner Pinturitas" class="banner-img">
+  </header>
+
+  <!-- 2. Colores (2 filas a todo lo ancho) y Pegatinas (1 fila a todo lo ancho) -->
+  <div class="palette-container">
+    <div id="colorGrid" class="palette-row grid-cols-12"></div>
+    <div id="stickerGrid" class="palette-row grid-cols-6"></div>
   </div>
-</header>
 
-<!-- Main -->
-<main class="relative z-10 px-4 pb-6 flex flex-col items-center gap-4">
-  
-  <!-- Herramientas -->
-  <div class="panel p-2 flex items-center justify-center gap-2 flex-wrap">
+  <!-- 3. Herramientas -->
+  <div class="toolbar-container">
     <button class="tool-btn active" data-tool="brush" data-name="Pincel">
       <i class="fa-solid fa-paintbrush"></i><span class="tool-name">Pincel</span>
     </button>
@@ -46,67 +40,40 @@
       <i class="fa-solid fa-eraser"></i><span class="tool-name">Borrar</span>
     </button>
     
-    <div class="w-px h-12 bg-yellow-200 mx-1"></div>
-    
-    <div class="flex items-center gap-2 px-2">
-      <div class="w-12 h-12 rounded-full bg-yellow-50 border-2 border-yellow-300 flex items-center justify-center">
-        <div id="sizePreview" class="rounded-full transition-all" style="width: 12px; height: 12px; background: #FF0000;"></div>
-      </div>
-      <input type="range" id="sizeSlider" class="size-slider w-24 md:w-32" min="5" max="80" value="15">
+    <div class="size-control">
+      <div id="sizePreview" class="size-preview"></div>
+      <input type="range" id="sizeSlider" class="size-slider" min="5" max="80" value="15">
     </div>
   </div>
-  
-  <!-- Canvas -->
-  <div class="canvas-wrapper w-full max-w-[900px]">
+
+  <!-- 4. Canvas (El área más importante, ocupa todo el espacio restante) -->
+  <div class="canvas-wrapper">
     <canvas id="paintCanvas" width="900" height="600"></canvas>
   </div>
 
-  <!-- Botones de Acción -->
-  <div class="flex flex-wrap gap-3 justify-center w-full max-w-[900px]">
-    <button id="uploadBtn" class="main-btn btn-upload flex-1 min-w-[140px] justify-center">
-      <i class="fa-solid fa-cloud-arrow-up"></i><span>Subir Dibujo</span>
-    </button>
+  <!-- 5. Botones de Acción y Especiales -->
+  <div class="action-bar">
+    <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i></button>
+    <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i></button>
+    <button id="uploadBtn" class="main-btn btn-upload"><i class="fa-solid fa-cloud-arrow-up"></i></button>
     <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
-    
-    <button id="undoBtn" class="main-btn btn-undo flex-1 min-w-[140px] justify-center">
-      <i class="fa-solid fa-rotate-left"></i><span>Deshacer</span>
-    </button>
-    <button id="newCanvasBtn" class="main-btn btn-new flex-1 min-w-[140px] justify-center">
-      <i class="fa-solid fa-trash"></i><span>Limpiar</span>
-    </button>
-    <button id="downloadBtn" class="main-btn btn-save flex-1 min-w-[140px] justify-center">
-      <i class="fa-solid fa-download"></i><span>Guardar</span>
-    </button>
+    <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i></button>
+    <button id="fireworksBtn" class="main-btn btn-fireworks"><i class="fa-solid fa-fire"></i></button>
+    <button id="balloonsBtn" class="main-btn btn-balloons"><i class="fa-solid fa-circle-up"></i></button>
   </div>
 
-  <!-- Botones Especiales -->
-  <div class="flex gap-4 justify-center w-full max-w-md mt-2">
-    <button id="fireworksBtn" class="magic-btn btn-fireworks flex-1">
-      <i class="fa-solid fa-fire"></i><span>Fuegos</span>
-    </button>
-    <button id="balloonsBtn" class="magic-btn btn-balloons flex-1">
-      <i class="fa-solid fa-circle-up"></i><span>Globos</span>
-    </button>
-  </div>
-
-  <!-- Galería Inferior -->
-  <div class="panel p-3 w-full max-w-[900px] mt-4">
-    <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-images text-xl text-pink-500"></i>
-        <h3 class="font-bold text-base md:text-lg text-gray-700">Elige tu dibujo</h3>
-      </div>
-      <div class="flex flex-wrap gap-1" id="categoryTabs">
-        <button class="category-tab active" data-cat="animales">🐾</button>
-        <button class="category-tab" data-cat="naturaleza">🌳</button>
-        <button class="category-tab" data-cat="vehiculos">🚗</button>
-        <button class="category-tab" data-cat="cosas">🧸</button>
-        <button class="category-tab" data-cat="comida">🍕</button>
-      </div>
+  <!-- 6. Galería Inferior (Scroll horizontal, no quita espacio al canvas) -->
+  <div class="gallery-bar">
+    <div id="categoryTabs" class="category-tabs">
+      <button class="category-tab active" data-cat="animales">🐾</button>
+      <button class="category-tab" data-cat="naturaleza">🌳</button>
+      <button class="category-tab" data-cat="vehiculos">🚗</button>
+      <button class="category-tab" data-cat="cosas">🧸</button>
+      <button class="category-tab" data-cat="comida">🍕</button>
     </div>
-    <div id="templatesGrid" class="grid grid-flow-col auto-cols-[90px] sm:auto-cols-[120px] gap-2 overflow-x-auto scroll-pretty pb-2"></div>
+    <div id="templatesGrid" class="templates-scroll"></div>
   </div>
-</main>
+</div>
 
 <div id="toast" class="toast"></div>
 <div id="effectsLayer" class="effects-layer"></div>
