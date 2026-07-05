@@ -16,73 +16,43 @@
 <div class="blob blob-2"></div>
 <div class="blob blob-3"></div>
 
-<!-- Header -->
-<header class="relative z-20 pt-4 pb-2 px-4 md:px-6">
-  <div class="max-w-[1800px] mx-auto flex flex-wrap items-center justify-between gap-3">
-    <div class="flex items-center gap-3">
-      <div class="logo-icon text-5xl">🎨</div>
-      <h1 class="font-bubble text-4xl md:text-5xl text-pink-500">Pinturitas</h1>
-    </div>
-    <div class="flex items-center gap-2 md:gap-3">
-      <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i><span class="hidden sm:inline">Deshacer</span></button>
-      <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i><span class="hidden sm:inline">Limpiar</span></button>
-      <button id="uploadBtn" class="main-btn btn-upload"><i class="fa-solid fa-cloud-arrow-up"></i><span class="hidden sm:inline">Subir</span></button>
-      <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
-      <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i><span class="hidden sm:inline">Guardar</span></button>
-    </div>
+<!-- Header con Banner -->
+<header class="relative z-20 pt-4 pb-2 px-4 md:px-6 flex flex-col items-center gap-3">
+  <img src="Min.png" alt="Banner Pinturitas" class="banner-img w-full max-w-3xl rounded-2xl shadow-lg">
+  
+  <div class="flex items-center gap-2 md:gap-3 flex-wrap justify-center">
+    <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i><span>Deshacer</span></button>
+    <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i><span>Limpiar</span></button>
+    <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i><span>Guardar</span></button>
   </div>
 </header>
 
 <!-- Main -->
 <main class="relative z-10 px-2 md:px-4 pb-4">
-  <div class="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[40px_1fr_40px] gap-0 main-layout">
+  <div class="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 main-layout">
     
-    <!-- Lápices Izquierda (Asomando) -->
-    <aside class="pencil-sidebar hidden lg:block relative">
-      <div id="leftPencils" class="absolute top-1/2 right-0 -translate-y-1/2 flex flex-col gap-4"></div>
-    </aside>
-
-    <!-- Centro (Lienzo Gigante) -->
-    <div class="flex flex-col gap-3 px-0 md:px-2">
+    <!-- Centro (Lienzo y Herramientas) -->
+    <div class="flex flex-col gap-3">
       
       <!-- Barra de Herramientas -->
-      <div class="panel p-2 flex items-center justify-center gap-2 relative">
+      <div class="panel p-2 flex items-center justify-center gap-2 relative flex-wrap">
         <button class="tool-btn active" data-tool="brush" data-name="Pincel">
           <i class="fa-solid fa-paintbrush"></i><span class="tool-name">Pincel</span>
         </button>
         <button class="tool-btn" data-tool="bucket" data-name="Cubo">
           <i class="fa-solid fa-fill-drip"></i><span class="tool-name">Cubo</span>
         </button>
-        <button class="tool-btn" data-tool="sticker" data-name="Pegatinas">
-          <i class="fa-solid fa-face-smile"></i><span class="tool-name">Gomas</span>
-        </button>
         <button class="tool-btn" data-tool="eraser" data-name="Borrar">
           <i class="fa-solid fa-eraser"></i><span class="tool-name">Borrar</span>
         </button>
         
-        <div class="w-px h-16 bg-yellow-200 mx-1 hidden md:block"></div>
+        <div class="w-px h-12 bg-yellow-200 mx-1"></div>
         
         <div class="flex items-center gap-2 px-2">
           <div class="w-12 h-12 rounded-full bg-yellow-50 border-2 border-yellow-300 flex items-center justify-center">
-            <div id="sizePreview" class="rounded-full transition-all" style="width: 12px; height: 12px; background: #FF6B6B;"></div>
+            <div id="sizePreview" class="rounded-full transition-all" style="width: 12px; height: 12px; background: #FF0000;"></div>
           </div>
           <input type="range" id="sizeSlider" class="size-slider w-24 md:w-32" min="5" max="80" value="15">
-        </div>
-
-        <!-- Panel de Pegatinas -->
-        <div id="stickerPanel" class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-white p-3 rounded-2xl shadow-xl border-4 border-pink-300 grid grid-cols-6 gap-2 z-30 hidden">
-          <div class="sticker-btn active" data-sticker="⭐">⭐</div>
-          <div class="sticker-btn" data-sticker="❤️">❤️</div>
-          <div class="sticker-btn" data-sticker="😊">😊</div>
-          <div class="sticker-btn" data-sticker="🐶">🐶</div>
-          <div class="sticker-btn" data-sticker="🐱">🐱</div>
-          <div class="sticker-btn" data-sticker="🌸">🌸</div>
-          <div class="sticker-btn" data-sticker="🍎">🍎</div>
-          <div class="sticker-btn" data-sticker="🚗">🚗</div>
-          <div class="sticker-btn" data-sticker="🎈">🎈</div>
-          <div class="sticker-btn" data-sticker="👑">👑</div>
-          <div class="sticker-btn" data-sticker="🌈">🌈</div>
-          <div class="sticker-btn" data-sticker="🦄">🦄</div>
         </div>
       </div>
       
@@ -90,43 +60,65 @@
       <div class="canvas-wrapper">
         <canvas id="paintCanvas" width="900" height="650"></canvas>
       </div>
+
+      <!-- Galería Inferior -->
+      <div class="panel p-3">
+        <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-images text-xl text-pink-500"></i>
+            <h3 class="font-bold text-base md:text-lg text-gray-700">Elige tu dibujo</h3>
+          </div>
+          <div class="flex flex-wrap gap-1" id="categoryTabs">
+            <button class="category-tab active" data-cat="animales">🐾</button>
+            <button class="category-tab" data-cat="naturaleza">🌳</button>
+            <button class="category-tab" data-cat="vehiculos">🚗</button>
+            <button class="category-tab" data-cat="cosas">🧸</button>
+            <button class="category-tab" data-cat="comida">🍕</button>
+          </div>
+        </div>
+        <div id="templatesGrid" class="grid grid-flow-col auto-cols-[90px] sm:auto-cols-[120px] gap-2 overflow-x-auto scroll-pretty pb-2"></div>
+      </div>
     </div>
 
-    <!-- Lápices Derecha (Asomando) -->
-    <aside class="pencil-sidebar hidden lg:block relative">
-      <div id="rightPencils" class="absolute top-1/2 left-0 -translate-y-1/2 flex flex-col gap-4"></div>
+    <!-- Panel Derecho: Subir, Colores, Pegatinas, Magia -->
+    <aside class="flex flex-col gap-4">
+      
+      <!-- Subir Dibujo -->
+      <button id="uploadBtn" class="main-btn btn-upload w-full justify-center text-lg py-3">
+        <i class="fa-solid fa-cloud-arrow-up"></i><span>Subir Dibujo</span>
+      </button>
+      <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+
+      <!-- Colores (5x5) -->
+      <div class="panel p-3">
+        <h3 class="font-bold text-gray-700 mb-2 text-center">Colores</h3>
+        <div id="colorGrid" class="grid grid-cols-5 gap-2"></div>
+      </div>
+
+      <!-- Pegatinas (3x5) -->
+      <div class="panel p-3">
+        <h3 class="font-bold text-gray-700 mb-2 text-center">Pegatinas</h3>
+        <div id="stickerGrid" class="grid grid-cols-5 gap-2"></div>
+      </div>
+
+      <!-- Magia -->
+      <div class="panel p-3">
+        <h3 class="font-bold text-gray-700 mb-2 text-center">¡Magia!</h3>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="fireworksBtn" class="magic-btn btn-fireworks">
+            <i class="fa-solid fa-fire"></i><span>Fuegos</span>
+          </button>
+          <button id="balloonsBtn" class="magic-btn btn-balloons">
+            <i class="fa-solid fa-circle-up"></i><span>Globos</span>
+          </button>
+        </div>
+      </div>
     </aside>
-
-    <!-- Lápices Móvil (Abajo) -->
-    <div class="lg:hidden flex justify-center gap-1 flex-wrap p-2 bg-white rounded-xl shadow-md mt-3">
-      <div id="mobilePencils" class="flex gap-2 flex-wrap justify-center"></div>
-    </div>
-  </div>
-
-  <!-- Galería Inferior -->
-  <div class="max-w-[1800px] mx-auto panel p-3 mt-3">
-    <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-images text-xl text-pink-500"></i>
-        <h3 class="font-bold text-base md:text-lg text-gray-700">Elige tu dibujo</h3>
-      </div>
-      <div class="flex flex-wrap gap-1" id="categoryTabs">
-        <button class="category-tab active" data-cat="animales">🐾</button>
-        <button class="category-tab" data-cat="naturaleza">🌳</button>
-        <button class="category-tab" data-cat="vehiculos">🚗</button>
-        <button class="category-tab" data-cat="cosas">🧸</button>
-        <button class="category-tab" data-cat="comida">🍕</button>
-      </div>
-    </div>
-    <div id="templatesGrid" class="grid grid-flow-col auto-cols-[90px] sm:auto-cols-[120px] gap-2 overflow-x-auto scroll-pretty pb-2"></div>
   </div>
 </main>
 
 <div id="toast" class="toast"></div>
-
-<footer class="relative z-10 text-center py-2 text-gray-500 text-xs">
-  <p>Hecho con <i class="fa-solid fa-heart text-pink-400"></i> para pequeños artistas</p>
-</footer>
+<div id="effectsLayer" class="effects-layer"></div>
 
 <script src="script.js"></script>
 </body>
