@@ -12,7 +12,7 @@ let currentTemplate = null;
 let currentCategory = 'animales';
 let currentSticker = '⭐';
 
-// ============ PANTALLA DE INICIO ============
+// ============ PANTALLA DE INICIO (CORAZÓN) ============
 document.getElementById('startBtn').addEventListener('click', () => {
   document.getElementById('welcomeModal').classList.add('hidden');
   // Iniciar audio tras interacción del usuario (requerido en Android)
