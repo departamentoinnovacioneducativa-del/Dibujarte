@@ -1,11 +1,35 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
+  "id": "luna-min-pinturitas",
+  "name": "Luna Min Pinturitas",
+  "short_name": "Luna Min",
+  "description": "Aplicación de dibujo y colorear para niños con herramientas de pintura, plantillas y efectos divertidos. Diseñada para Ari y Min.",
+  "start_url": "index.html",
+  "scope": ".",
   "display": "standalone",
-  "name": "departamentoinnovacioneducativa-del.github",
+  "background_color": "#FF9ACD",
+  "theme_color": "#FF6B6B",
   "orientation": "any",
-  "scope": "/",
-  "short_name": "departamentoinnovacioneducativa-del.github",
-  "start_url": "/",
-  "theme_color": "#ffffff"
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["education", "entertainment", "kids"],
+  "icons": [
+    {
+      "src": "Min.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "Min.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "Min.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
