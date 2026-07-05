@@ -38,8 +38,8 @@
   <div class="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[40px_1fr_40px] gap-0 main-layout">
     
     <!-- Lápices Izquierda (Asomando) -->
-    <aside class="pencil-sidebar hidden lg:flex flex-col items-center justify-center gap-4">
-      <div id="leftPencils" class="flex flex-col gap-4"></div>
+    <aside class="pencil-sidebar hidden lg:block relative">
+      <div id="leftPencils" class="absolute top-1/2 right-0 -translate-y-1/2 flex flex-col gap-4"></div>
     </aside>
 
     <!-- Centro (Lienzo Gigante) -->
@@ -93,8 +93,8 @@
     </div>
 
     <!-- Lápices Derecha (Asomando) -->
-    <aside class="pencil-sidebar hidden lg:flex flex-col items-center justify-center gap-4">
-      <div id="rightPencils" class="flex flex-col gap-4"></div>
+    <aside class="pencil-sidebar hidden lg:block relative">
+      <div id="rightPencils" class="absolute top-1/2 left-0 -translate-y-1/2 flex flex-col gap-4"></div>
     </aside>
 
     <!-- Lápices Móvil (Abajo) -->
