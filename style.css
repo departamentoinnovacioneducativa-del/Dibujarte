@@ -54,9 +54,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30vh; /* Esto empuja el corazón hacia abajo */
+  margin-top: 40vh; /* Esto empuja el corazón hacia abajo */
 }
-.welcome-heart:active { transform: scale(0.85); }
+.welcome-heart:active { transform: scale(0.75); }
 
 .tap-text {
   font-family: 'Bubblegum Sans', cursive;
