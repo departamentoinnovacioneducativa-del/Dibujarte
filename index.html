@@ -3,21 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Pinturitas - ¡Dibuja y Colorea!</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Luna Min - ¡Dibuja y Colorea!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Pantalla de Inicio (Portada) -->
+<div id="welcomeModal" class="welcome-modal">
+  <div class="welcome-content">
+    <img src="Min.png" alt="Luna Min" class="welcome-banner">
+    <h1 class="welcome-title">Luna Min</h1>
+    <p class="welcome-subtitle">¡Bienvenido a la experiencia del dibujo!<br>con Ari y Min</p>
+    <button id="startBtn" class="welcome-btn">¡Empezar a pintar!</button>
+  </div>
+</div>
+
 <div class="app-container">
   
-  <!-- Banner Ancho -->
+  <!-- Banner -->
   <header class="app-header">
-    <img src="Min.png" alt="Banner Pinturitas" class="banner-img">
+    <img src="Min.png" alt="Banner Luna Min" class="banner-img">
   </header>
 
-  <!-- Colores (3 filas a lo ancho) y Pegatinas (1 fila a lo ancho) -->
+  <!-- Colores y Pegatinas -->
   <div class="palette-container">
     <div id="colorGrid" class="color-row"></div>
     <div id="stickerGrid" class="sticker-row"></div>
@@ -43,23 +53,30 @@
     </div>
   </div>
 
-  <!-- Lienzo de Dibujo -->
+  <!-- Lienzo -->
   <div class="canvas-container">
     <canvas id="paintCanvas" width="900" height="600"></canvas>
   </div>
 
-  <!-- Botones de Acción -->
+  <!-- Botones de Acción (Con Texto) -->
   <div class="action-bar">
     <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i></button>
     <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i></button>
-    <button id="uploadBtn" class="main-btn btn-upload"><i class="fa-solid fa-cloud-arrow-up"></i></button>
+    
+    <button id="uploadBtn" class="main-btn-text btn-upload">
+      <i class="fa-solid fa-cloud-arrow-up"></i><span>Subir</span>
+    </button>
     <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="display:none">
-    <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i></button>
+    
+    <button id="downloadBtn" class="main-btn-text btn-save">
+      <i class="fa-solid fa-download"></i><span>Guardar</span>
+    </button>
+    
     <button id="fireworksBtn" class="main-btn btn-fireworks"><i class="fa-solid fa-fire"></i></button>
     <button id="balloonsBtn" class="main-btn btn-balloons"><i class="fa-solid fa-circle-up"></i></button>
   </div>
 
-  <!-- Galería de Dibujos -->
+  <!-- Galería -->
   <div class="gallery-bar">
     <div id="categoryTabs" class="category-tabs">
       <button class="category-tab active" data-cat="animales">🐾</button>
