@@ -15,6 +15,10 @@ let currentSticker = '⭐';
 // ============ PANTALLA DE INICIO ============
 document.getElementById('startBtn').addEventListener('click', () => {
   document.getElementById('welcomeModal').classList.add('hidden');
+  // Iniciar audio tras interacción del usuario (requerido en Android)
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
   playSound(800, 0.2);
   setTimeout(() => {
     const firstCard = document.querySelector('.template-card');
@@ -342,7 +346,7 @@ document.querySelectorAll('.category-tab').forEach(tab => {
 });
 
 // ============================================
-// PLANTILLAS SVG (Galería Original y Ampliada)
+// PLANTILLAS SVG (Originales y Ampliadas)
 // ============================================
 const templates = {
   // ANIMALES
