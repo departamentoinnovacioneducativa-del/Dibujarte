@@ -28,7 +28,7 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #FFC2D1; /* Color de emergencia por si la imagen tarda en cargar */
+  background: #FFC2D1;
 }
 .welcome-modal.hidden { display: none; }
 
@@ -38,13 +38,13 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Hace que la imagen cubra toda la pantalla sin deformarse */
+  object-fit: cover;
   z-index: 1;
 }
 
 .welcome-heart {
   position: relative;
-  z-index: 2; /* Pone el corazón por encima de la imagen */
+  z-index: 2;
   font-size: 160px;
   color: #FF4757;
   cursor: pointer;
@@ -54,6 +54,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20vh; /* Esto empuja el corazón hacia abajo */
 }
 .welcome-heart:active { transform: scale(0.85); }
 
