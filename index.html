@@ -75,7 +75,8 @@
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <span class="hidden sm:inline">Subir Dibujo</span>
       </button>
-      <input type="file" id="imageLoader" accept="image/*" style="display: none;">
+      <!-- Input oculto de forma segura para todos los navegadores -->
+      <input type="file" id="imageLoader" accept="image/png, image/jpeg, image/jpg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
       <button id="newCanvasBtn" class="main-btn btn-new">
         <i class="fa-solid fa-file"></i>
         <span class="hidden sm:inline">Lienzo Nuevo</span>
