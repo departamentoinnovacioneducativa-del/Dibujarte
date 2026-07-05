@@ -38,9 +38,11 @@ function speak(text) {
 }
 
 // ============ COLORES Y PEGATINAS ============
+// 18 colores para 3 filas de 6
 const colors = [
   '#FF0000', '#FF8000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF',
-  '#8000FF', '#FF00FF', '#8B4513', '#FFFFFF', '#A0A0A0', '#000000'
+  '#8000FF', '#FF00FF', '#8B4513', '#FFFFFF', '#A0A0A0', '#000000',
+  '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#FF6BCB', '#9D4EDD'
 ];
 const stickers = ['⭐', '❤️', '😊', '🌸', '🎈', '👑'];
 
@@ -385,4 +387,4 @@ renderTemplates();
 setTimeout(() => {
   const firstCard = document.querySelector('.template-card');
   if (firstCard) firstCard.click();
-}, 300); 
+}, 300);
