@@ -35,7 +35,7 @@
     
     <div class="welcome-step">
       <div class="welcome-step-num">1</div>
-      <div><strong>Elige un dibujo</strong><br><span class="text-sm text-gray-600">Toca cualquier dibujo del lado derecho</span></div>
+      <div><strong>Elige un dibujo</strong><br><span class="text-sm text-gray-600">Toca un dibujo o sube el tuyo</span></div>
     </div>
     <div class="welcome-step">
       <div class="welcome-step-num">2</div>
@@ -43,7 +43,7 @@
     </div>
     <div class="welcome-step">
       <div class="welcome-step-num">3</div>
-      <div><strong>¡Pinta!</strong><br><span class="text-sm text-gray-600">Usa el cubo para rellenar o el pincel para dibujar</span></div>
+      <div><strong>¡Pinta!</strong><br><span class="text-sm text-gray-600">Usa el cubo para rellenar o el pincel</span></div>
     </div>
     
     <button id="startBtn" class="main-btn btn-save mt-4 mx-auto">
@@ -71,6 +71,11 @@
         <i class="fa-solid fa-rotate-left"></i>
         <span class="hidden sm:inline">Deshacer</span>
       </button>
+      <button id="uploadBtn" class="main-btn btn-upload">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <span class="hidden sm:inline">Subir Dibujo</span>
+      </button>
+      <input type="file" id="imageLoader" accept="image/*" style="display: none;">
       <button id="newCanvasBtn" class="main-btn btn-new">
         <i class="fa-solid fa-file"></i>
         <span class="hidden sm:inline">Lienzo Nuevo</span>
