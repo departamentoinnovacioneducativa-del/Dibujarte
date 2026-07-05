@@ -39,19 +39,16 @@ function speak(text) {
 
 // ============ COLORES Y PEGATINAS ============
 const colors = [
-  '#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00',
-  '#00FF80', '#00FFFF', '#0080FF', '#0000FF', '#8000FF',
-  '#FF00FF', '#FF0080', '#8B4513', '#A0A0A0', '#000000',
-  '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#FF6BCB',
-  '#FFFFFF', '#FFB347', '#FDFD96', '#77DD77', '#AEC6CF'
+  '#FF0000', '#FF8000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF',
+  '#8000FF', '#FF00FF', '#8B4513', '#FFFFFF', '#A0A0A0', '#000000'
 ];
 
-const stickers = ['⭐', '❤️', '😊', '🐶', '🐱', '🌸', '🍎', '🚗', '🎈', '👑', '🌈', '🦄', '🍕', '⚽', '🎨'];
+const stickers = ['⭐', '❤️', '😊', '🌸', '🎈', '👑'];
 
 const colorGrid = document.getElementById('colorGrid');
 const stickerGrid = document.getElementById('stickerGrid');
 
-// Renderizar Colores (5x5)
+// Renderizar Colores (12 en 2 filas de 6)
 colors.forEach((color, i) => {
   const btn = document.createElement('div');
   btn.className = 'color-btn' + (i === 0 ? ' active' : '');
@@ -62,12 +59,16 @@ colors.forEach((color, i) => {
     btn.classList.add('active');
     currentColor = color;
     document.getElementById('sizePreview').style.background = color;
+    // Si estaba en gomas, cambiar a pincel automáticamente
+    if (currentTool === 'sticker') {
+      document.querySelector('[data-tool="brush"]').click();
+    }
     playSound(600, 0.05);
   });
   colorGrid.appendChild(btn);
 });
 
-// Renderizar Pegatinas (3x5)
+// Renderizar Pegatinas (6 en 1 fila)
 stickers.forEach((st, i) => {
   const btn = document.createElement('div');
   btn.className = 'sticker-btn' + (i === 0 ? ' active' : '');
@@ -222,26 +223,11 @@ document.querySelectorAll('.tool-btn').forEach(btn => {
     playSound(800, 0.1);
     showToast(name, 'fa-hand-pointer');
     
-    if (currentTool === 'eraser') canvas.style.cursor = 'grab';
+    if (currentTool === 'sticker') canvas.style.cursor = 'copy';
+    else if (currentTool === 'eraser') canvas.style.cursor = 'grab';
     else if (currentTool === 'bucket') canvas.style.cursor = 'cell';
     else canvas.style.cursor = 'crosshair';
   });
-});
-
-// Añadir botón de Pegatinas a la lógica de herramientas
-const stickerToolBtn = document.createElement('button');
-stickerToolBtn.className = 'tool-btn';
-stickerToolBtn.dataset.tool = 'sticker';
-stickerToolBtn.dataset.name = 'Pegatinas';
-stickerToolBtn.innerHTML = `<i class="fa-solid fa-face-smile"></i><span class="tool-name">Gomas</span>`;
-document.querySelector('.panel .flex').insertBefore(stickerToolBtn, document.querySelector('[data-tool="eraser"]'));
-
-stickerToolBtn.addEventListener('click', () => {
-  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-  stickerToolBtn.classList.add('active');
-  currentTool = 'sticker';
-  speak('Pegatinas'); playSound(800, 0.1); showToast('Pegatinas', 'fa-hand-pointer');
-  canvas.style.cursor = 'copy';
 });
 
 // ============ TAMAÑO Y BOTONES ============
