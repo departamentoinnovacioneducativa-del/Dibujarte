@@ -4,28 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Pinturitas - ¡Dibuja y Colorea!</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-gray-800">
+<body>
 
-<!-- Contenedor Principal Flex (Ocupa toda la pantalla) -->
 <div class="app-container">
   
-  <!-- 1. Banner (Arriba) -->
+  <!-- Banner -->
   <header class="app-header">
     <img src="Min.png" alt="Banner Pinturitas" class="banner-img">
   </header>
 
-  <!-- 2. Colores (2 filas a todo lo ancho) y Pegatinas (1 fila a todo lo ancho) -->
+  <!-- Colores (2 filas a lo ancho) y Pegatinas (1 fila a lo ancho) -->
   <div class="palette-container">
-    <div id="colorGrid" class="palette-row grid-cols-12"></div>
-    <div id="stickerGrid" class="palette-row grid-cols-6"></div>
+    <div id="colorGrid" class="color-row"></div>
+    <div id="stickerGrid" class="sticker-row"></div>
   </div>
 
-  <!-- 3. Herramientas -->
+  <!-- Herramientas -->
   <div class="toolbar-container">
     <button class="tool-btn active" data-tool="brush" data-name="Pincel">
       <i class="fa-solid fa-paintbrush"></i><span class="tool-name">Pincel</span>
@@ -39,30 +37,29 @@
     <button class="tool-btn" data-tool="eraser" data-name="Borrar">
       <i class="fa-solid fa-eraser"></i><span class="tool-name">Borrar</span>
     </button>
-    
     <div class="size-control">
       <div id="sizePreview" class="size-preview"></div>
       <input type="range" id="sizeSlider" class="size-slider" min="5" max="80" value="15">
     </div>
   </div>
 
-  <!-- 4. Canvas (El área más importante, ocupa todo el espacio restante) -->
-  <div class="canvas-wrapper">
+  <!-- Lienzo de Dibujo -->
+  <div class="canvas-container">
     <canvas id="paintCanvas" width="900" height="600"></canvas>
   </div>
 
-  <!-- 5. Botones de Acción y Especiales -->
+  <!-- Botones de Acción -->
   <div class="action-bar">
     <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i></button>
     <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i></button>
     <button id="uploadBtn" class="main-btn btn-upload"><i class="fa-solid fa-cloud-arrow-up"></i></button>
-    <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+    <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="display:none">
     <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i></button>
     <button id="fireworksBtn" class="main-btn btn-fireworks"><i class="fa-solid fa-fire"></i></button>
     <button id="balloonsBtn" class="main-btn btn-balloons"><i class="fa-solid fa-circle-up"></i></button>
   </div>
 
-  <!-- 6. Galería Inferior (Scroll horizontal, no quita espacio al canvas) -->
+  <!-- Galería de Dibujos -->
   <div class="gallery-bar">
     <div id="categoryTabs" class="category-tabs">
       <button class="category-tab active" data-cat="animales">🐾</button>
