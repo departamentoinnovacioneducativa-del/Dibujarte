@@ -1,7 +1,7 @@
 {
   "name": "Luna Min Pinturitas",
   "short_name": "Luna Min",
-  "description": "App de dibujo y colorear para niños con Ari y Min",
+  "description": "Aplicación de dibujo y colorear para niños con herramientas de pintura, plantillas y efectos divertidos.",
   "start_url": "index.html",
   "display": "fullscreen",
   "background_color": "#FF9ACD",
