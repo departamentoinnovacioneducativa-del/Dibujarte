@@ -24,25 +24,34 @@ html, body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 8px;
-  gap: 8px;
+  gap: 10px;
 }
 
+/* Banner Ancho */
 .app-header { width: 100%; display: flex; justify-content: center; }
-.banner-img { height: 60px; max-width: 100%; object-fit: contain; border-radius: 12px; }
+.banner-img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
-/* Paleta */
+/* Paleta (Doble de Tamaño) */
 .palette-container {
   width: 100%;
   background: white;
-  padding: 8px;
-  border-radius: 16px;
+  padding: 12px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.color-row, .sticker-row { display: grid; gap: 6px; width: 100%; }
-.color-row { grid-template-columns: repeat(12, 1fr); }
+.color-row, .sticker-row { display: grid; gap: 10px; width: 100%; }
+.color-row { grid-template-columns: repeat(6, 1fr); }
 .sticker-row { grid-template-columns: repeat(6, 1fr); }
 
 .color-btn {
@@ -50,24 +59,24 @@ html, body {
   aspect-ratio: 1;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 3px solid white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
   transition: transform 0.1s;
 }
 .color-btn:active { transform: scale(1.2); }
-.color-btn.active { box-shadow: 0 0 0 3px #FF6BCB, 0 2px 4px rgba(0,0,0,0.2); transform: scale(1.1); }
+.color-btn.active { box-shadow: 0 0 0 4px #FF6BCB, 0 3px 6px rgba(0,0,0,0.2); transform: scale(1.1); }
 
 .sticker-btn {
   width: 100%;
   aspect-ratio: 1;
-  font-size: 20px;
+  font-size: 36px; /* Doble de tamaño */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #FFF5E1;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 }
 .sticker-btn:active { transform: scale(1.1); }
 .sticker-btn.active { border-color: #FF6BCB; background: white; }
@@ -141,19 +150,19 @@ html, body {
 }
 
 /* Botones */
-.action-bar { width: 100%; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.action-bar { width: 100%; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .main-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+  width: 55px;
+  height: 55px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border: 2px solid white;
   color: white;
-  font-size: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 22px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 .main-btn:active { transform: scale(0.9); }
 .btn-new { background: #FF6B6B; }
@@ -167,13 +176,13 @@ html, body {
 .gallery-bar { width: 100%; display: flex; flex-direction: column; gap: 8px; background: white; padding: 8px; border-radius: 16px; margin-bottom: 10px; }
 .category-tabs { display: flex; gap: 8px; justify-content: center; }
 .category-tab {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
   cursor: pointer;
   background: #FFF5E1;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
