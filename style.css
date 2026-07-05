@@ -35,35 +35,57 @@ body {
 .sticker-btn.active { border-color: #FF6BCB; background: white; transform: scale(1.1); }
 
 /* Lápices Laterales (Asomando) */
-.pencil-sidebar { background: transparent; border: none; box-shadow: none; z-index: 15; }
-.pencil { display: flex; align-items: center; width: 150px; height: 36px; cursor: pointer; flex-shrink: 0; position: relative; filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.2)); }
+.pencil-sidebar { 
+  background: transparent; 
+  border: none; 
+  box-shadow: none; 
+  z-index: 15; 
+  width: 40px; 
+  height: 100%; 
+  position: relative; 
+}
+
+#leftPencils, #rightPencils {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 150px;
+}
+
+.pencil {
+  display: flex; align-items: center; width: 150px; height: 36px; cursor: pointer;
+  flex-shrink: 0; position: relative; filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.2));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 .pencil-tip { width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-right: 24px solid #E8C39E; position: relative; z-index: 1; }
 .pencil-tip::after { content: ''; position: absolute; left: 24px; top: -6px; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 12px solid var(--p-color); }
 .pencil-body { width: 80px; height: 28px; background: var(--p-color); border-top: 2px solid #555; border-bottom: 2px solid #555; }
 .pencil-metal { width: 12px; height: 28px; background: repeating-linear-gradient(45deg, #ddd, #ddd 2px, #999 2px, #999 4px); border-top: 2px solid #555; border-bottom: 2px solid #555; }
 .pencil-eraser { width: 16px; height: 28px; background: #FF9ACD; border: 2px solid #555; border-left: none; border-radius: 0 8px 8px 0; }
 
-/* Lápices Izquierda: Ocultos a la izquierda, asoman 45px */
+/* Lápices Izquierda: Ocultos a la izquierda, asoman 40px (goma) */
 .pencil.left {
-  margin-left: -110px;
-  transition: margin-left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  clip-path: inset(0 0 0 105px); /* Recorta 105px de la izquierda */
 }
 .pencil.left:hover, .pencil.left.active {
-  margin-left: -70px; /* Se desliza hacia la derecha (centro) */
+  transform: translateX(105px); /* Se desliza a la derecha (centro) */
+  clip-path: none; /* Muestra todo */
   z-index: 20;
 }
 
-/* Lápices Derecha: Ocultos a la derecha, asoman 45px */
+/* Lápices Derecha: Ocultos a la derecha, asoman 40px (punta) */
 .pencil.right { flex-direction: row-reverse; }
 .pencil.right .pencil-tip { border-right: none; border-left: 24px solid #E8C39E; }
 .pencil.right .pencil-tip::after { left: -24px; border-left: 12px solid var(--p-color); border-right: none; }
 .pencil.right .pencil-eraser { border-left: 2px solid #555; border-right: none; border-radius: 8px 0 0 8px; }
+
 .pencil.right {
-  margin-right: -110px;
-  transition: margin-right 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  clip-path: inset(0 105px 0 0); /* Recorta 105px de la derecha */
 }
 .pencil.right:hover, .pencil.right.active {
-  margin-right: -70px; /* Se desliza hacia la izquierda (centro) */
+  transform: translateX(-105px); /* Se desliza a la izquierda (centro) */
+  clip-path: none;
   z-index: 20;
 }
 
@@ -80,6 +102,17 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
   z-index: 2;
   pointer-events: none;
+}
+
+/* Lápices Móviles */
+.pencil.mobile {
+  clip-path: none !important;
+  transform: scale(0.7) !important;
+  margin: -5px;
+}
+.pencil.mobile:hover, .pencil.mobile.active {
+  transform: scale(0.9) !important;
+  clip-path: none !important;
 }
 
 /* Categorías */
