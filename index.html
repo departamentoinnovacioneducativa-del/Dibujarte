@@ -4,129 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pinturitas - ¡Dibuja y Colorea!</title>
-
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Nuestro CSS personalizado -->
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-gray-800">
 
-<!-- Decoraciones de fondo -->
+<!-- Fondos decorativos -->
 <div class="blob blob-1"></div>
 <div class="blob blob-2"></div>
 <div class="blob blob-3"></div>
-<i class="fa-solid fa-star star-deco" style="top: 15%; left: 8%; font-size: 24px; animation-delay: 0s;"></i>
-<i class="fa-solid fa-star star-deco" style="top: 25%; right: 12%; font-size: 18px; animation-delay: 1s;"></i>
-<i class="fa-solid fa-star star-deco" style="bottom: 35%; left: 5%; font-size: 20px; animation-delay: 2s;"></i>
-<i class="fa-solid fa-heart star-deco" style="top: 60%; right: 6%; font-size: 22px; color: #FF6BCB; animation-delay: 0.5s;"></i>
 
 <!-- Header -->
-<header class="relative z-10 pt-6 pb-4 px-4 md:px-6">
-  <div class="max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-4">
+<header class="relative z-10 pt-4 pb-2 px-4 md:px-6">
+  <div class="max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3">
     <div class="flex items-center gap-3">
       <div class="logo-icon text-5xl">🎨</div>
       <div>
-        <h1 class="font-bubble text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500">
-          Pinturitas
-        </h1>
-        <p class="text-sm text-gray-600 font-medium">¡Dibuja, pinta y diviértete!</p>
+        <h1 class="font-bubble text-4xl md:text-5xl text-pink-500">Pinturitas</h1>
       </div>
     </div>
-    
-    <div class="flex items-center gap-2 md:gap-3 flex-wrap">
-      <button id="undoBtn" class="main-btn btn-undo">
-        <i class="fa-solid fa-rotate-left"></i>
-        <span class="hidden sm:inline">Deshacer</span>
-      </button>
-      <button id="uploadBtn" class="main-btn btn-upload">
-        <i class="fa-solid fa-cloud-arrow-up"></i>
-        <span class="hidden sm:inline">Subir Dibujo</span>
-      </button>
-      <input type="file" id="imageLoader" accept="image/png, image/jpeg, image/jpg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
-      <button id="newCanvasBtn" class="main-btn btn-new">
-        <i class="fa-solid fa-file"></i>
-        <span class="hidden sm:inline">Lienzo Nuevo</span>
-      </button>
-      <button id="downloadBtn" class="main-btn btn-save">
-        <i class="fa-solid fa-download"></i>
-        <span class="hidden sm:inline">Guardar</span>
-      </button>
+    <div class="flex items-center gap-2 md:gap-3">
+      <button id="undoBtn" class="main-btn btn-undo"><i class="fa-solid fa-rotate-left"></i><span class="hidden sm:inline">Deshacer</span></button>
+      <button id="newCanvasBtn" class="main-btn btn-new"><i class="fa-solid fa-trash"></i><span class="hidden sm:inline">Limpiar</span></button>
+      <button id="uploadBtn" class="main-btn btn-upload"><i class="fa-solid fa-cloud-arrow-up"></i><span class="hidden sm:inline">Subir</span></button>
+      <input type="file" id="imageLoader" accept="image/png, image/jpeg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+      <button id="downloadBtn" class="main-btn btn-save"><i class="fa-solid fa-download"></i><span class="hidden sm:inline">Guardar</span></button>
     </div>
   </div>
 </header>
 
-<!-- Main Content -->
-<main class="relative z-10 px-4 md:px-6 pb-6">
-  <div class="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[150px_1fr_150px] gap-4 main-layout">
+<!-- Main -->
+<main class="relative z-10 px-2 md:px-4 pb-4">
+  <div class="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[130px_1fr_130px] gap-3 main-layout">
     
     <!-- Lápices Izquierda -->
-    <aside class="panel p-3 flex flex-col items-center gap-3 pencil-sidebar">
-      <span class="text-xs font-bold text-gray-500 hidden lg:block">COLORES</span>
-      <div id="leftPencils" class="flex flex-col gap-3"></div>
+    <aside class="panel p-2 flex flex-col items-center gap-2 pencil-sidebar">
+      <div id="leftPencils" class="flex flex-col gap-2 justify-center h-full"></div>
     </aside>
 
     <!-- Centro -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-3">
       
-      <!-- Herramientas -->
-      <div class="panel p-4">
-        <div class="flex flex-wrap items-center justify-center gap-3">
-          <button class="tool-btn active" data-tool="brush" title="Pincel">
-            <i class="fa-solid fa-paintbrush"></i>
-            <span class="tool-name">Pincel</span>
-          </button>
-          <button class="tool-btn" data-tool="bucket" title="Cubo de pintura">
-            <i class="fa-solid fa-fill-drip"></i>
-            <span class="tool-name">Cubo</span>
-          </button>
-          <button class="tool-btn" data-tool="marker" title="Rotulador">
-            <i class="fa-solid fa-marker"></i>
-            <span class="tool-name">Rotulador</span>
-          </button>
-          <button class="tool-btn" data-tool="spray" title="Spray">
-            <i class="fa-solid fa-spray-can"></i>
-            <span class="tool-name">Spray</span>
-          </button>
-          <button class="tool-btn" data-tool="eraser" title="Borrador">
-            <i class="fa-solid fa-eraser"></i>
-            <span class="tool-name">Borrar</span>
-          </button>
-          
-          <div class="hidden md:block w-px h-16 bg-yellow-200 mx-2"></div>
-          
-          <!-- Tamaño -->
-          <div class="flex items-center gap-3 px-3">
-            <div class="w-14 h-14 rounded-full bg-yellow-50 border-2 border-yellow-300 flex items-center justify-center">
-              <div id="sizePreview" class="rounded-full transition-all" style="width: 12px; height: 12px; background: #FF6B6B;"></div>
-            </div>
-            <div class="flex flex-col">
-              <span class="text-xs font-semibold text-gray-600">Tamaño</span>
-              <input type="range" id="sizeSlider" class="size-slider w-32" min="2" max="60" value="12">
-            </div>
+      <!-- Barra de Herramientas Simplificada -->
+      <div class="panel p-2 flex items-center justify-center gap-2 relative">
+        <button class="tool-btn active" data-tool="brush" data-name="Pincel">
+          <i class="fa-solid fa-paintbrush"></i><span class="tool-name">Pincel</span>
+        </button>
+        <button class="tool-btn" data-tool="bucket" data-name="Cubo">
+          <i class="fa-solid fa-fill-drip"></i><span class="tool-name">Cubo</span>
+        </button>
+        <button class="tool-btn" data-tool="sticker" data-name="Pegatinas">
+          <i class="fa-solid fa-face-smile"></i><span class="tool-name">Gomas</span>
+        </button>
+        <button class="tool-btn" data-tool="eraser" data-name="Borrar">
+          <i class="fa-solid fa-eraser"></i><span class="tool-name">Borrar</span>
+        </button>
+        
+        <div class="w-px h-16 bg-yellow-200 mx-1 hidden md:block"></div>
+        
+        <div class="flex items-center gap-2 px-2">
+          <div class="w-12 h-12 rounded-full bg-yellow-50 border-2 border-yellow-300 flex items-center justify-center">
+            <div id="sizePreview" class="rounded-full transition-all" style="width: 12px; height: 12px; background: #FF6B6B;"></div>
           </div>
-          
-          <div class="hidden md:block w-px h-16 bg-yellow-200 mx-2"></div>
-          
-          <!-- Color activo -->
-          <div class="flex items-center gap-3 px-3">
-            <div class="flex flex-col items-center gap-1">
-              <span class="text-xs font-semibold text-gray-600">Color</span>
-              <div id="activeColorDisplay" class="w-14 h-14 rounded-full border-4 border-white shadow-md" style="background: #FF6B6B;"></div>
-            </div>
-            <label class="flex flex-col items-center gap-1 cursor-pointer">
-              <span class="text-xs font-semibold text-gray-600">Elegir</span>
-              <div class="w-14 h-14 rounded-full border-4 border-yellow-300 shadow-md flex items-center justify-center bg-white relative overflow-hidden">
-                <input type="color" id="colorPicker" value="#FF6B6B" class="absolute inset-0 opacity-0 cursor-pointer">
-                <i class="fa-solid fa-eye-dropper text-2xl text-gray-400"></i>
-              </div>
-            </label>
-          </div>
+          <input type="range" id="sizeSlider" class="size-slider w-24 md:w-32" min="5" max="80" value="15">
+        </div>
+
+        <!-- Panel de Pegatinas -->
+        <div id="stickerPanel" class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-white p-3 rounded-2xl shadow-xl border-4 border-pink-300 grid grid-cols-6 gap-2 z-20 hidden">
+          <div class="sticker-btn active" data-sticker="⭐">⭐</div>
+          <div class="sticker-btn" data-sticker="❤️">❤️</div>
+          <div class="sticker-btn" data-sticker="😊">😊</div>
+          <div class="sticker-btn" data-sticker="🐶">🐶</div>
+          <div class="sticker-btn" data-sticker="🐱">🐱</div>
+          <div class="sticker-btn" data-sticker="🌸">🌸</div>
+          <div class="sticker-btn" data-sticker="🍎">🍎</div>
+          <div class="sticker-btn" data-sticker="🚗">🚗</div>
+          <div class="sticker-btn" data-sticker="🎈">🎈</div>
+          <div class="sticker-btn" data-sticker="👑">👑</div>
+          <div class="sticker-btn" data-sticker="🌈">🌈</div>
+          <div class="sticker-btn" data-sticker="🦄">🦄</div>
         </div>
       </div>
       
@@ -137,43 +95,36 @@
     </div>
 
     <!-- Lápices Derecha -->
-    <aside class="panel p-3 flex flex-col items-center gap-3 pencil-sidebar">
-      <span class="text-xs font-bold text-gray-500 hidden lg:block">COLORES</span>
-      <div id="rightPencils" class="flex flex-col gap-3"></div>
+    <aside class="panel p-2 flex flex-col items-center gap-2 pencil-sidebar">
+      <div id="rightPencils" class="flex flex-col gap-2 justify-center h-full"></div>
     </aside>
-
   </div>
 
   <!-- Galería Inferior -->
-  <div class="max-w-[1700px] mx-auto panel p-4 mt-4">
-    <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+  <div class="max-w-[1700px] mx-auto panel p-3 mt-3">
+    <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
       <div class="flex items-center gap-2">
-        <i class="fa-solid fa-images text-2xl text-pink-500"></i>
-        <h3 class="font-semibold text-lg text-gray-700">Dibujos para Colorear</h3>
-        <span class="text-sm text-gray-500 ml-2 hidden sm:inline">¡Desliza para ver más!</span>
+        <i class="fa-solid fa-images text-xl text-pink-500"></i>
+        <h3 class="font-bold text-base md:text-lg text-gray-700">Elige tu dibujo</h3>
       </div>
-      <div class="flex flex-wrap gap-2" id="categoryTabs">
-        <button class="category-tab active" data-cat="animales"><i class="fa-solid fa-paw"></i><span>Animales</span></button>
-        <button class="category-tab" data-cat="naturaleza"><i class="fa-solid fa-tree"></i><span>Naturaleza</span></button>
-        <button class="category-tab" data-cat="vehiculos"><i class="fa-solid fa-car"></i><span>Vehículos</span></button>
-        <button class="category-tab" data-cat="cosas"><i class="fa-solid fa-cube"></i><span>Cosas</span></button>
-        <button class="category-tab" data-cat="comida"><i class="fa-solid fa-utensils"></i><span>Comida</span></button>
+      <div class="flex flex-wrap gap-1" id="categoryTabs">
+        <button class="category-tab active" data-cat="animales">🐾</button>
+        <button class="category-tab" data-cat="naturaleza">🌳</button>
+        <button class="category-tab" data-cat="vehiculos">🚗</button>
+        <button class="category-tab" data-cat="cosas">🧸</button>
+        <button class="category-tab" data-cat="comida">🍕</button>
       </div>
     </div>
-    <div id="templatesGrid" class="grid grid-flow-col auto-cols-[110px] sm:auto-cols-[140px] gap-3 overflow-x-auto scroll-pretty pb-2"></div>
+    <div id="templatesGrid" class="grid grid-flow-col auto-cols-[90px] sm:auto-cols-[120px] gap-2 overflow-x-auto scroll-pretty pb-2"></div>
   </div>
 </main>
 
-<!-- Toast -->
 <div id="toast" class="toast"></div>
 
-<!-- Footer -->
-<footer class="relative z-10 text-center py-4 text-gray-500 text-sm">
+<footer class="relative z-10 text-center py-2 text-gray-500 text-xs">
   <p>Hecho con <i class="fa-solid fa-heart text-pink-400"></i> para pequeños artistas</p>
 </footer>
 
-<!-- Nuestro JavaScript personalizado -->
 <script src="script.js"></script>
-
 </body>
 </html>
