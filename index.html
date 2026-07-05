@@ -26,33 +26,6 @@
 <i class="fa-solid fa-star star-deco" style="bottom: 35%; left: 5%; font-size: 20px; animation-delay: 2s;"></i>
 <i class="fa-solid fa-heart star-deco" style="top: 60%; right: 6%; font-size: 22px; color: #FF6BCB; animation-delay: 0.5s;"></i>
 
-<!-- Modal de bienvenida -->
-<div id="welcomeModal" class="welcome-modal">
-  <div class="welcome-content">
-    <div class="text-6xl mb-3 logo-icon">🎨</div>
-    <h2 class="font-bubble text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 mb-2">¡Hola, artista!</h2>
-    <p class="text-gray-600 mb-4">Bienvenido a Pinturitas. ¡Mira lo fácil que es!</p>
-    
-    <div class="welcome-step">
-      <div class="welcome-step-num">1</div>
-      <div><strong>Elige un dibujo</strong><br><span class="text-sm text-gray-600">Toca un dibujo o sube el tuyo</span></div>
-    </div>
-    <div class="welcome-step">
-      <div class="welcome-step-num">2</div>
-      <div><strong>Elige un color</strong><br><span class="text-sm text-gray-600">Toca un color de la paleta</span></div>
-    </div>
-    <div class="welcome-step">
-      <div class="welcome-step-num">3</div>
-      <div><strong>¡Pinta!</strong><br><span class="text-sm text-gray-600">Usa el cubo para rellenar o el pincel</span></div>
-    </div>
-    
-    <button id="startBtn" class="main-btn btn-save mt-4 mx-auto">
-      <i class="fa-solid fa-play"></i>
-      <span>¡Empezar a pintar!</span>
-    </button>
-  </div>
-</div>
-
 <!-- Header -->
 <header class="relative z-10 pt-6 pb-4 px-4 md:px-6">
   <div class="max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-4">
@@ -75,7 +48,6 @@
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <span class="hidden sm:inline">Subir Dibujo</span>
       </button>
-      <!-- Input oculto de forma segura para todos los navegadores -->
       <input type="file" id="imageLoader" accept="image/png, image/jpeg, image/jpg" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
       <button id="newCanvasBtn" class="main-btn btn-new">
         <i class="fa-solid fa-file"></i>
@@ -91,12 +63,18 @@
 
 <!-- Main Content -->
 <main class="relative z-10 px-4 md:px-6 pb-6">
-  <div class="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4 main-grid">
+  <div class="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-[150px_1fr_150px] gap-4 main-layout">
     
-    <!-- Columna principal -->
+    <!-- Lápices Izquierda -->
+    <aside class="panel p-3 flex flex-col items-center gap-3 pencil-sidebar">
+      <span class="text-xs font-bold text-gray-500 hidden lg:block">COLORES</span>
+      <div id="leftPencils" class="flex flex-col gap-3"></div>
+    </aside>
+
+    <!-- Centro -->
     <div class="flex flex-col gap-4">
       
-      <!-- Herramientas grandes con etiquetas -->
+      <!-- Herramientas -->
       <div class="panel p-4">
         <div class="flex flex-wrap items-center justify-center gap-3">
           <button class="tool-btn active" data-tool="brush" title="Pincel">
@@ -156,54 +134,33 @@
       <div class="canvas-wrapper">
         <canvas id="paintCanvas" width="900" height="600"></canvas>
       </div>
-      
-      <!-- Paleta de colores -->
-      <div class="panel p-4">
-        <div class="flex items-center gap-2 mb-3">
-          <i class="fa-solid fa-palette text-2xl text-orange-400"></i>
-          <h3 class="font-semibold text-lg text-gray-700">Paleta de Colores</h3>
-          <span class="text-sm text-gray-500 ml-2">¡Toca un color!</span>
-        </div>
-        <div id="colorPalette" class="flex flex-wrap gap-3 justify-center"></div>
-      </div>
     </div>
-    
-    <!-- Sidebar derecho: Galería de dibujos -->
-    <aside class="sidebar-right panel p-4">
-      <div class="flex items-center gap-2 mb-3">
+
+    <!-- Lápices Derecha -->
+    <aside class="panel p-3 flex flex-col items-center gap-3 pencil-sidebar">
+      <span class="text-xs font-bold text-gray-500 hidden lg:block">COLORES</span>
+      <div id="rightPencils" class="flex flex-col gap-3"></div>
+    </aside>
+
+  </div>
+
+  <!-- Galería Inferior -->
+  <div class="max-w-[1700px] mx-auto panel p-4 mt-4">
+    <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+      <div class="flex items-center gap-2">
         <i class="fa-solid fa-images text-2xl text-pink-500"></i>
         <h3 class="font-semibold text-lg text-gray-700">Dibujos para Colorear</h3>
+        <span class="text-sm text-gray-500 ml-2 hidden sm:inline">¡Desliza para ver más!</span>
       </div>
-      
-      <!-- Categorías -->
-      <div class="flex flex-wrap gap-2 mb-3" id="categoryTabs">
-        <button class="category-tab active" data-cat="animales">
-          <i class="fa-solid fa-paw"></i>
-          <span>Animales</span>
-        </button>
-        <button class="category-tab" data-cat="naturaleza">
-          <i class="fa-solid fa-tree"></i>
-          <span>Naturaleza</span>
-        </button>
-        <button class="category-tab" data-cat="vehiculos">
-          <i class="fa-solid fa-car"></i>
-          <span>Vehículos</span>
-        </button>
-        <button class="category-tab" data-cat="cosas">
-          <i class="fa-solid fa-cube"></i>
-          <span>Cosas</span>
-        </button>
-        <button class="category-tab" data-cat="comida">
-          <i class="fa-solid fa-utensils"></i>
-          <span>Comida</span>
-        </button>
+      <div class="flex flex-wrap gap-2" id="categoryTabs">
+        <button class="category-tab active" data-cat="animales"><i class="fa-solid fa-paw"></i><span>Animales</span></button>
+        <button class="category-tab" data-cat="naturaleza"><i class="fa-solid fa-tree"></i><span>Naturaleza</span></button>
+        <button class="category-tab" data-cat="vehiculos"><i class="fa-solid fa-car"></i><span>Vehículos</span></button>
+        <button class="category-tab" data-cat="cosas"><i class="fa-solid fa-cube"></i><span>Cosas</span></button>
+        <button class="category-tab" data-cat="comida"><i class="fa-solid fa-utensils"></i><span>Comida</span></button>
       </div>
-      
-      <p class="text-xs text-gray-500 mb-3">¡Toca un dibujo y aparecerá en tu lienzo!</p>
-      
-      <div id="templatesGrid" class="grid grid-cols-3 gap-2 max-h-[600px] lg:max-h-[700px] overflow-y-auto scroll-pretty pr-1"></div>
-    </aside>
-    
+    </div>
+    <div id="templatesGrid" class="grid grid-flow-col auto-cols-[110px] sm:auto-cols-[140px] gap-3 overflow-x-auto scroll-pretty pb-2"></div>
   </div>
 </main>
 
