@@ -8,109 +8,83 @@
 
 html, body {
   width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100%; /* Fallback */
+  overflow: hidden; /* Evita scroll raro en Android */
   overscroll-behavior: none;
   font-family: 'Fredoka', sans-serif;
   background: linear-gradient(135deg, #FF9ACD 0%, #FFC2D1 50%, #FFE5EC 100%);
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-/* Pantalla de Inicio */
+/* Pantalla de Inicio (Pantalla Completa) */
 .welcome-modal {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #FF9ACD, #9D4EDD);
+  background-image: url('Min.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #FFC2D1; /* Color de respaldo */
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: fadeIn 0.5s ease;
 }
 .welcome-modal.hidden { display: none; }
-.welcome-content {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 30px;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.welcome-banner {
-  width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 16px;
-  margin-bottom: 20px;
-}
-.welcome-title {
-  font-family: 'Bubblegum Sans', cursive;
-  font-size: 48px;
+
+.welcome-heart {
+  font-size: 140px;
   color: #FF6B6B;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-}
-.welcome-subtitle {
-  font-size: 20px;
-  color: #555;
-  font-weight: 600;
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-.welcome-btn {
-  background: linear-gradient(135deg, #FF6B6B, #FF9F1C);
-  color: white;
-  border: none;
-  padding: 15px 40px;
-  font-size: 22px;
-  font-weight: 700;
-  border-radius: 20px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  filter: drop-shadow(0 0 25px rgba(255, 107, 107, 0.8));
+  animation: beat 1.2s infinite;
   transition: transform 0.2s;
 }
-.welcome-btn:active { transform: scale(0.95); }
+.welcome-heart:active { transform: scale(0.8); }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes beat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 
+/* Contenedor Principal (100dvh es la magia para Android) */
 .app-container {
+  height: 100vh; /* Fallback para navegadores antiguos */
+  height: 100dvh; /* Dynamic Viewport Height - se ajusta a la barra de URL de Android */
   display: flex;
   flex-direction: column;
-  align-items: center;
   max-width: 1000px;
   margin: 0 auto;
   padding: 8px;
-  gap: 10px;
+  gap: 8px;
 }
 
-.app-header { width: 100%; display: flex; justify-content: center; }
+.app-header { flex-shrink: 0; display: flex; justify-content: center; }
 .banner-img {
   width: 100%;
   max-width: 900px;
   height: auto;
-  max-height: 160px;
+  max-height: 120px; /* Reducido un poco para que el lienzo tenga más espacio */
   object-fit: contain;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 12px;
 }
 
 /* Paleta */
 .palette-container {
-  width: 100%;
+  flex-shrink: 0;
   background: white;
-  padding: 12px;
-  border-radius: 20px;
+  padding: 8px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.color-row, .sticker-row { display: grid; gap: 10px; width: 100%; }
+.color-row, .sticker-row { display: grid; gap: 6px; width: 100%; }
 .color-row { grid-template-columns: repeat(6, 1fr); }
 .sticker-row { grid-template-columns: repeat(6, 1fr); }
 
@@ -119,128 +93,131 @@ html, body {
   aspect-ratio: 1;
   border-radius: 50%;
   cursor: pointer;
-  border: 3px solid white;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-  transition: transform 0.1s;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .color-btn:active { transform: scale(1.2); }
-.color-btn.active { box-shadow: 0 0 0 4px #FF6BCB, 0 3px 6px rgba(0,0,0,0.2); transform: scale(1.1); }
+.color-btn.active { box-shadow: 0 0 0 3px #FF6BCB, 0 2px 4px rgba(0,0,0,0.2); transform: scale(1.1); }
 
 .sticker-btn {
   width: 100%;
   aspect-ratio: 1;
-  font-size: 36px;
+  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 8px;
   background: #FFF5E1;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
 }
 .sticker-btn:active { transform: scale(1.1); }
 .sticker-btn.active { border-color: #FF6BCB; background: white; }
 
 /* Herramientas */
 .toolbar-container {
-  width: 100%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   background: white;
-  padding: 8px;
+  padding: 6px;
   border-radius: 16px;
   flex-wrap: wrap;
 }
 .tool-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   cursor: pointer;
   background: #FFF5E1;
   border: none;
   color: #444;
 }
-.tool-btn i { font-size: 20px; }
-.tool-btn span { font-size: 10px; font-weight: 700; }
+.tool-btn i { font-size: 18px; }
+.tool-btn span { font-size: 9px; font-weight: 700; }
 .tool-btn.active { background: linear-gradient(135deg, #FFD93D, #FF9F1C); color: white; }
 
-.size-control { display: flex; align-items: center; gap: 8px; padding-left: 10px; border-left: 2px solid #FFE0B2; }
-.size-preview { width: 24px; height: 24px; background: #FF0000; border-radius: 50%; border: 1px solid #ccc; }
+.size-control { display: flex; align-items: center; gap: 6px; padding-left: 6px; border-left: 2px solid #FFE0B2; }
+.size-preview { width: 20px; height: 20px; background: #FF0000; border-radius: 50%; border: 1px solid #ccc; }
 .size-slider {
-  width: 100px;
-  height: 10px;
+  width: 80px;
+  height: 8px;
   -webkit-appearance: none;
   appearance: none;
   background: #FFE0B2;
-  border-radius: 5px;
+  border-radius: 4px;
   outline: none;
 }
-.size-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #FF9F1C; cursor: pointer; }
+.size-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #FF9F1C; cursor: pointer; }
 
-/* Canvas */
+/* Canvas (El área más importante) */
 .canvas-container {
+  flex: 1 1 auto; /* Crece para llenar el espacio */
+  min-height: 0; /* CRÍTICO para que flexbox funcione bien en Android */
   width: 100%;
   background: linear-gradient(135deg, #FF6B6B, #FFD93D, #4D96FF, #6BCB77);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
-  border-radius: 20px;
-  padding: 8px;
+  border-radius: 16px;
+  padding: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
 #paintCanvas {
-  width: 100%;
-  max-width: 900px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
   aspect-ratio: 3 / 2;
   background: white;
-  border-radius: 12px;
-  touch-action: none;
+  border-radius: 8px;
+  touch-action: none; /* CRÍTICO PARA ANDROID: Evita scroll al dibujar */
   cursor: crosshair;
+  object-fit: contain;
 }
 
 /* Botones */
-.action-bar { width: 100%; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; }
+.action-bar { flex-shrink: 0; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; align-items: center; }
 .main-btn {
-  width: 55px;
-  height: 55px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border: 2px solid white;
   color: white;
-  font-size: 22px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .main-btn:active { transform: scale(0.9); }
 
-/* Botones con texto (Subir/Guardar) */
 .main-btn-text {
-  height: 55px;
-  padding: 0 20px;
-  border-radius: 14px;
+  height: 48px;
+  padding: 0 15px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   border: 2px solid white;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .main-btn-text:active { transform: scale(0.95); }
 
@@ -252,29 +229,29 @@ html, body {
 .btn-balloons { background: linear-gradient(135deg, #4D96FF, #9D4EDD); }
 
 /* Galería */
-.gallery-bar { width: 100%; display: flex; flex-direction: column; gap: 8px; background: white; padding: 8px; border-radius: 16px; margin-bottom: 10px; }
-.category-tabs { display: flex; gap: 8px; justify-content: center; }
+.gallery-bar { flex-shrink: 0; display: flex; flex-direction: column; gap: 6px; background: white; padding: 6px; border-radius: 16px; margin-bottom: 4px; }
+.category-tabs { display: flex; gap: 6px; justify-content: center; }
 .category-tab {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
   cursor: pointer;
   background: #FFF5E1;
   border: none;
-  font-size: 22px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.category-tab.active { background: white; box-shadow: 0 0 0 3px #FF6BCB; }
+.category-tab.active { background: white; box-shadow: 0 0 0 2px #FF6BCB; }
 
-.templates-scroll { display: flex; gap: 8px; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
-.template-card { flex-shrink: 0; width: 70px; height: 70px; background: #FFF5E1; border-radius: 10px; border: 2px solid transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.templates-scroll { display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
+.template-card { flex-shrink: 0; width: 55px; height: 55px; background: #FFF5E1; border-radius: 8px; border: 2px solid transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .template-card.active { border-color: #FF6B6B; background: white; }
 .template-card svg { width: 90%; height: 90%; }
 
 /* Toast y Efectos */
-.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #FF9F1C; color: white; padding: 12px 24px; border-radius: 20px; font-weight: bold; font-size: 16px; opacity: 0; transition: all 0.3s; z-index: 1000; pointer-events: none; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #FF9F1C; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 1000; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 .effects-layer { position: fixed; inset: 0; pointer-events: none; z-index: 900; overflow: hidden; }
