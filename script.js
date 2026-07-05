@@ -385,4 +385,4 @@ renderTemplates();
 setTimeout(() => {
   const firstCard = document.querySelector('.template-card');
   if (firstCard) firstCard.click();
-}, 300);
+}, 300); 
