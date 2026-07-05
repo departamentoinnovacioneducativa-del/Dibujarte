@@ -12,6 +12,16 @@ let currentTemplate = null;
 let currentCategory = 'animales';
 let currentSticker = '⭐';
 
+// ============ PANTALLA DE INICIO ============
+document.getElementById('startBtn').addEventListener('click', () => {
+  document.getElementById('welcomeModal').classList.add('hidden');
+  playSound(800, 0.2);
+  setTimeout(() => {
+    const firstCard = document.querySelector('.template-card');
+    if (firstCard) firstCard.click();
+  }, 100);
+});
+
 // ============ SONIDOS Y VOZ ============
 let audioCtx;
 function playSound(freq = 800, duration = 0.1) {
@@ -38,7 +48,6 @@ function speak(text) {
 }
 
 // ============ COLORES Y PEGATINAS ============
-// 18 colores para 3 filas de 6
 const colors = [
   '#FF0000', '#FF8000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF',
   '#8000FF', '#FF00FF', '#8B4513', '#FFFFFF', '#A0A0A0', '#000000',
@@ -101,7 +110,7 @@ function undo() {
   }
 }
 
-// ============ DIBUJO Y PEGATINAS (OPTIMIZADO ANDROID) ============
+// ============ DIBUJO Y PEGATINAS ============
 function getPos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
@@ -112,7 +121,7 @@ function getPos(e) {
 }
 
 function startDraw(e) {
-  e.preventDefault(); // Crítico para Android
+  e.preventDefault();
   const pos = getPos(e);
   
   if (currentTool === 'bucket') {
@@ -140,7 +149,7 @@ function startDraw(e) {
 
 function draw(e) {
   if (!isDrawing) return;
-  e.preventDefault(); // Crítico para Android
+  e.preventDefault();
   const pos = getPos(e);
   
   ctx.beginPath();
@@ -237,7 +246,7 @@ document.getElementById('newCanvasBtn').addEventListener('click', () => {
 });
 document.getElementById('downloadBtn').addEventListener('click', () => {
   const link = document.createElement('a');
-  link.download = 'mi-dibujo.png'; link.href = canvas.toDataURL('image/png'); link.click();
+  link.download = 'mi-dibujo-luna-min.png'; link.href = canvas.toDataURL('image/png'); link.click();
   showToast('¡Guardado!', 'fa-download'); launchConfetti(); playSound(1000, 0.5);
 });
 
@@ -333,19 +342,48 @@ document.querySelectorAll('.category-tab').forEach(tab => {
 });
 
 // ============================================
-// PLANTILLAS SVG
+// PLANTILLAS SVG (Galería Original y Ampliada)
 // ============================================
 const templates = {
+  // ANIMALES
   cat: { name: 'Gatito', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 620 420 Q 780 400 760 250 Q 750 200 710 200" fill="white" stroke="black" stroke-width="8" stroke-linecap="round"/><ellipse cx="450" cy="420" rx="170" ry="130" fill="white" stroke="black" stroke-width="8"/><ellipse cx="450" cy="440" rx="90" ry="80" fill="white" stroke="black" stroke-width="4"/><ellipse cx="370" cy="520" rx="35" ry="25" fill="white" stroke="black" stroke-width="6"/><ellipse cx="530" cy="520" rx="35" ry="25" fill="white" stroke="black" stroke-width="6"/><circle cx="450" cy="240" r="160" fill="white" stroke="black" stroke-width="8"/><polygon points="320,160 300,40 410,130" fill="white" stroke="black" stroke-width="8"/><polygon points="580,160 600,40 490,130" fill="white" stroke="black" stroke-width="8"/><polygon points="335,150 325,85 380,135" fill="#FFD93D" stroke="black" stroke-width="4"/><polygon points="565,150 575,85 520,135" fill="#FFD93D" stroke="black" stroke-width="4"/><ellipse cx="390" cy="230" rx="25" ry="35" fill="white" stroke="black" stroke-width="6"/><ellipse cx="510" cy="230" rx="25" ry="35" fill="white" stroke="black" stroke-width="6"/><ellipse cx="395" cy="240" rx="12" ry="20" fill="black"/><ellipse cx="515" cy="240" rx="12" ry="20" fill="black"/><circle cx="390" cy="225" r="5" fill="white"/><circle cx="510" cy="225" r="5" fill="white"/><circle cx="350" cy="290" r="15" fill="#FFC8DD" stroke="black" stroke-width="3"/><circle cx="550" cy="290" r="15" fill="#FFC8DD" stroke="black" stroke-width="3"/><path d="M 430 290 L 470 290 L 450 310 Z" fill="#FF9F1C" stroke="black" stroke-width="4"/><path d="M 450 310 L 450 325" stroke="black" stroke-width="4"/><path d="M 450 325 Q 430 340 415 325" fill="none" stroke="black" stroke-width="4"/><path d="M 450 325 Q 470 340 485 325" fill="none" stroke="black" stroke-width="4"/><line x1="340" y1="280" x2="230" y2="260" stroke="black" stroke-width="4" stroke-linecap="round"/><line x1="340" y1="300" x2="230" y2="310" stroke="black" stroke-width="4" stroke-linecap="round"/><line x1="560" y1="280" x2="670" y2="260" stroke="black" stroke-width="4" stroke-linecap="round"/><line x1="560" y1="300" x2="670" y2="310" stroke="black" stroke-width="4" stroke-linecap="round"/></svg>` },
   dog: { name: 'Perrito', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="420" rx="170" ry="120" fill="white" stroke="black" stroke-width="8"/><ellipse cx="370" cy="510" rx="35" ry="25" fill="white" stroke="black" stroke-width="6"/><ellipse cx="530" cy="510" rx="35" ry="25" fill="white" stroke="black" stroke-width="6"/><path d="M 620 420 Q 720 450 700 540 L 670 540 Q 680 470 620 450" fill="white" stroke="black" stroke-width="6"/><circle cx="450" cy="250" r="160" fill="white" stroke="black" stroke-width="8"/><ellipse cx="320" cy="200" rx="50" ry="90" fill="white" stroke="black" stroke-width="8" transform="rotate(-20 320 200)"/><ellipse cx="580" cy="200" rx="50" ry="90" fill="white" stroke="black" stroke-width="8" transform="rotate(20 580 200)"/><ellipse cx="450" cy="310" rx="80" ry="60" fill="white" stroke="black" stroke-width="6"/><ellipse cx="450" cy="290" rx="40" ry="30" fill="white" stroke="black" stroke-width="4"/><circle cx="390" cy="220" r="20" fill="white" stroke="black" stroke-width="6"/><circle cx="510" cy="220" r="20" fill="white" stroke="black" stroke-width="6"/><circle cx="395" cy="225" r="10" fill="black"/><circle cx="515" cy="225" r="10" fill="black"/><ellipse cx="450" cy="290" rx="20" ry="15" fill="black"/><path d="M 450 310 L 450 330" stroke="black" stroke-width="4"/><path d="M 450 330 Q 430 345 415 335" fill="none" stroke="black" stroke-width="4"/><path d="M 450 330 Q 470 345 485 335" fill="none" stroke="black" stroke-width="4"/><path d="M 440 340 L 460 340 L 455 350 L 445 350 Z" fill="#FF6B6B" stroke="black" stroke-width="3"/><circle cx="360" cy="280" r="15" fill="#FFC8DD" stroke="black" stroke-width="3"/><circle cx="540" cy="280" r="15" fill="#FFC8DD" stroke="black" stroke-width="3"/></svg>` },
   fish: { name: 'Pez', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 390 170 Q 340 120 380 90 Q 430 110 420 170" fill="white" stroke="black" stroke-width="6"/><path d="M 390 430 Q 340 480 380 510 Q 430 490 420 430" fill="white" stroke="black" stroke-width="6"/><ellipse cx="450" cy="300" rx="240" ry="140" fill="white" stroke="black" stroke-width="8"/><polygon points="670,300 800,180 800,420" fill="white" stroke="black" stroke-width="8"/><path d="M 580 200 L 620 180 L 600 240 Z" fill="white" stroke="black" stroke-width="5"/><circle cx="300" cy="260" r="40" fill="white" stroke="black" stroke-width="6"/><circle cx="300" cy="260" r="20" fill="black"/><circle cx="295" cy="255" r="5" fill="white"/></svg>` },
+  bird: { name: 'Pájaro', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="350" rx="180" ry="140" fill="white" stroke="black" stroke-width="8"/><circle cx="320" cy="250" r="90" fill="white" stroke="black" stroke-width="8"/><polygon points="240,250 170,230 240,270" fill="#FF9F1C" stroke="black" stroke-width="6"/><circle cx="305" cy="230" r="15" fill="white" stroke="black" stroke-width="5"/><circle cx="307" cy="232" r="8" fill="black"/><path d="M 600 300 Q 700 280 750 340 Q 720 380 650 370" fill="white" stroke="black" stroke-width="7"/><path d="M 380 480 L 380 540 L 410 540 L 410 480" fill="white" stroke="black" stroke-width="6"/><path d="M 480 480 L 480 540 L 510 540 L 510 480" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  turtle: { name: 'Tortuga', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="350" rx="220" ry="140" fill="white" stroke="black" stroke-width="8"/><circle cx="250" cy="300" r="60" fill="white" stroke="black" stroke-width="8"/><circle cx="240" cy="290" r="10" fill="black"/><path d="M 300 450 L 300 550 M 600 450 L 600 550 M 350 450 L 350 550 M 550 450 L 550 550" stroke="black" stroke-width="20" stroke-linecap="round"/><polygon points="450,250 550,350 450,450 350,350" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  lion: { name: 'León', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><circle cx="450" cy="300" r="200" fill="white" stroke="black" stroke-width="8"/><circle cx="450" cy="300" r="120" fill="white" stroke="black" stroke-width="8"/><circle cx="400" cy="280" r="15" fill="black"/><circle cx="500" cy="280" r="15" fill="black"/><polygon points="440,320 460,320 450,340" fill="black"/><path d="M 430 360 Q 450 380 470 360" fill="none" stroke="black" stroke-width="4"/></svg>` },
+  dinosaur: { name: 'Dinosaurio', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 200 450 Q 200 200 400 200 L 450 200 Q 600 200 600 350 L 600 450 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 600 250 Q 700 200 750 250 L 750 300 Q 700 350 600 300 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 250 200 L 200 150 M 300 200 L 250 120 M 350 200 L 300 130 M 400 200 L 350 120" stroke="black" stroke-width="8" stroke-linecap="round"/><circle cx="680" cy="240" r="15" fill="black"/><path d="M 720 260 L 740 270 L 720 280" stroke="black" stroke-width="4" fill="none"/><path d="M 300 450 L 300 550 M 500 450 L 500 550" stroke="black" stroke-width="25" stroke-linecap="round"/></svg>` },
+  unicorn: { name: 'Unicornio', cat: 'animales', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 200 450 Q 200 200 500 200 L 600 200 Q 700 200 700 300 L 700 450 Z" fill="white" stroke="black" stroke-width="8"/><polygon points="550,150 580,50 610,150" fill="white" stroke="black" stroke-width="6"/><circle cx="450" cy="250" r="15" fill="black"/><path d="M 450 350 Q 550 350 650 450" fill="none" stroke="black" stroke-width="8"/><path d="M 200 300 Q 150 250 100 300 M 200 350 Q 150 320 80 350" stroke="black" stroke-width="6" fill="none"/><path d="M 300 450 L 300 550 M 600 450 L 600 550" stroke="black" stroke-width="25" stroke-linecap="round"/></svg>` },
+  
+  // NATURALEZA
   flower: { name: 'Flor', cat: 'naturaleza', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 450 280 L 450 540" stroke="black" stroke-width="8" fill="none"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8" transform="rotate(60 450 200)"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8" transform="rotate(120 450 200)"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8" transform="rotate(180 450 200)"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8" transform="rotate(240 450 200)"/><ellipse cx="450" cy="200" rx="90" ry="70" fill="white" stroke="black" stroke-width="8" transform="rotate(300 450 200)"/><circle cx="450" cy="200" r="50" fill="white" stroke="black" stroke-width="6"/></svg>` },
   sun: { name: 'Sol', cat: 'naturaleza', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><circle cx="450" cy="300" r="140" fill="white" stroke="black" stroke-width="8"/><g stroke="black" stroke-width="8" fill="white" stroke-linecap="round"><path d="M 450 60 L 450 130"/><path d="M 450 470 L 450 540"/><path d="M 210 300 L 280 300"/><path d="M 620 300 L 690 300"/><path d="M 280 130 L 330 180"/><path d="M 570 420 L 620 470"/><path d="M 620 130 L 570 180"/><path d="M 330 420 L 280 470"/></g><circle cx="395" cy="280" r="15" fill="black"/><circle cx="505" cy="280" r="15" fill="black"/><path d="M 390 360 Q 450 410 510 360" fill="none" stroke="black" stroke-width="6"/></svg>` },
+  tree: { name: 'Árbol', cat: 'naturaleza', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="410" y="350" width="80" height="200" fill="white" stroke="black" stroke-width="8" rx="10"/><circle cx="450" cy="220" r="160" fill="white" stroke="black" stroke-width="8"/><circle cx="320" cy="260" r="100" fill="white" stroke="black" stroke-width="8"/><circle cx="580" cy="260" r="100" fill="white" stroke="black" stroke-width="8"/></svg>` },
+  mushroom: { name: 'Seta', cat: 'naturaleza', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 200 350 Q 200 150 450 150 Q 700 150 700 350 Z" fill="white" stroke="black" stroke-width="8"/><rect x="350" y="350" width="200" height="200" fill="white" stroke="black" stroke-width="8" rx="20"/><circle cx="300" cy="250" r="30" fill="white" stroke="black" stroke-width="6"/><circle cx="500" cy="220" r="40" fill="white" stroke="black" stroke-width="6"/><circle cx="600" cy="280" r="25" fill="white" stroke="black" stroke-width="6"/></svg>` },
+
+  // VEHÍCULOS
   rocket: { name: 'Cohete', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 450 60 Q 390 120 380 240 L 380 380 L 520 380 L 520 240 Q 510 120 450 60 Z" fill="white" stroke="black" stroke-width="8"/><circle cx="450" cy="200" r="40" fill="white" stroke="black" stroke-width="6"/><path d="M 380 320 L 310 380 L 310 440 L 380 410 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 520 320 L 590 380 L 590 440 L 520 410 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 410 430 L 390 520 L 430 460 Z" fill="#FF9F1C" stroke="black" stroke-width="5"/><path d="M 490 430 L 510 520 L 470 460 Z" fill="#FF9F1C" stroke="black" stroke-width="5"/></svg>` },
   car: { name: 'Coche', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 120 380 L 160 280 L 280 240 L 520 240 L 640 280 L 680 380 L 680 440 L 120 440 Z" fill="white" stroke="black" stroke-width="8"/><circle cx="250" cy="440" r="55" fill="white" stroke="black" stroke-width="8"/><circle cx="550" cy="440" r="55" fill="white" stroke="black" stroke-width="8"/></svg>` },
+  boat: { name: 'Barco', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 200 380 L 600 380 L 550 460 L 250 460 Z" fill="white" stroke="black" stroke-width="8"/><line x1="400" y1="380" x2="400" y2="100" stroke="black" stroke-width="6"/><path d="M 400 100 L 400 320 L 580 320 Z" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  airplane: { name: 'Avión', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 100 300 L 700 250 L 800 300 L 700 350 L 100 300 Z" fill="white" stroke="black" stroke-width="8"/><polygon points="200,300 100,200 150,200 250,300" fill="white" stroke="black" stroke-width="8"/><polygon points="200,300 100,400 150,400 250,300" fill="white" stroke="black" stroke-width="8"/></svg>` },
+  train: { name: 'Tren', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="200" y="200" width="400" height="200" fill="white" stroke="black" stroke-width="8" rx="20"/><rect x="300" y="250" width="100" height="80" fill="white" stroke="black" stroke-width="6"/><rect x="450" y="250" width="100" height="80" fill="white" stroke="black" stroke-width="6"/><circle cx="300" cy="450" r="40" fill="white" stroke="black" stroke-width="8"/><circle cx="500" cy="450" r="40" fill="white" stroke="black" stroke-width="8"/><rect x="220" y="140" width="60" height="60" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  submarine: { name: 'Submarino', cat: 'vehiculos', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="350" rx="250" ry="100" fill="white" stroke="black" stroke-width="8"/><rect x="350" y="200" width="100" height="50" fill="white" stroke="black" stroke-width="6" rx="10"/><circle cx="400" cy="225" r="20" fill="white" stroke="black" stroke-width="4"/><circle cx="300" cy="350" r="30" fill="white" stroke="black" stroke-width="5"/><circle cx="450" cy="350" r="30" fill="white" stroke="black" stroke-width="5"/><circle cx="600" cy="350" r="30" fill="white" stroke="black" stroke-width="5"/><polygon points="700,350 750,320 750,380" fill="white" stroke="black" stroke-width="6"/></svg>` },
+
+  // COSAS
   house: { name: 'Casa', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="250" y="280" width="400" height="240" fill="white" stroke="black" stroke-width="8"/><polygon points="230,280 450,100 670,280" fill="white" stroke="black" stroke-width="8"/><rect x="400" y="380" width="100" height="140" fill="white" stroke="black" stroke-width="6"/><rect x="290" y="320" width="80" height="80" fill="white" stroke="black" stroke-width="6"/><rect x="530" y="320" width="80" height="80" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  robot: { name: 'Robot', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="300" y="80" width="200" height="40" fill="white" stroke="black" stroke-width="6" rx="10"/><circle cx="400" cy="60" r="20" fill="white" stroke="black" stroke-width="6"/><rect x="250" y="120" width="300" height="200" fill="white" stroke="black" stroke-width="8" rx="15"/><rect x="290" y="160" width="60" height="60" fill="white" stroke="black" stroke-width="5" rx="8"/><rect x="450" y="160" width="60" height="60" fill="white" stroke="black" stroke-width="5" rx="8"/><rect x="320" y="250" width="160" height="30" fill="white" stroke="black" stroke-width="5" rx="5"/></svg>` },
+  castle: { name: 'Castillo', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><rect x="200" y="250" width="500" height="250" fill="white" stroke="black" stroke-width="8"/><rect x="170" y="150" width="100" height="350" fill="white" stroke="black" stroke-width="8"/><rect x="630" y="150" width="100" height="350" fill="white" stroke="black" stroke-width="8"/><polygon points="170,150 220,80 270,150" fill="white" stroke="black" stroke-width="6"/><polygon points="630,150 680,80 730,150" fill="white" stroke="black" stroke-width="6"/></svg>` },
+  crown: { name: 'Corona', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 150 400 L 200 200 L 300 350 L 450 150 L 600 350 L 700 200 L 750 400 Z" fill="white" stroke="black" stroke-width="8" stroke-linejoin="round"/><rect x="150" y="400" width="600" height="80" fill="white" stroke="black" stroke-width="8"/><circle cx="200" cy="200" r="20" fill="white" stroke="black" stroke-width="5"/><circle cx="450" cy="150" r="25" fill="white" stroke="black" stroke-width="5"/><circle cx="700" cy="200" r="20" fill="white" stroke="black" stroke-width="5"/></svg>` },
+  umbrella: { name: 'Paraguas', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 150 350 Q 450 100 750 350 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 250 350 Q 350 200 450 350" fill="white" stroke="black" stroke-width="6"/><path d="M 450 350 Q 550 200 650 350" fill="white" stroke="black" stroke-width="6"/><line x1="450" y1="350" x2="450" y2="500" stroke="black" stroke-width="6"/><path d="M 450 500 Q 450 550 500 550" fill="none" stroke="black" stroke-width="6"/></svg>` },
+  astronaut: { name: 'Astronauta', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><circle cx="450" cy="200" r="100" fill="white" stroke="black" stroke-width="8"/><path d="M 380 180 Q 450 150 520 180" fill="none" stroke="black" stroke-width="6"/><rect x="350" y="300" width="200" height="200" fill="white" stroke="black" stroke-width="8" rx="30"/><circle cx="400" cy="180" r="10" fill="black"/><circle cx="500" cy="180" r="10" fill="black"/><rect x="380" y="350" width="40" height="60" fill="white" stroke="black" stroke-width="4"/><rect x="480" y="350" width="40" height="60" fill="white" stroke="black" stroke-width="4"/></svg>` },
+  dragon: { name: 'Dragón', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><circle cx="450" cy="300" r="150" fill="white" stroke="black" stroke-width="8"/><polygon points="300,200 200,100 250,250" fill="white" stroke="black" stroke-width="6"/><polygon points="600,200 700,100 650,250" fill="white" stroke="black" stroke-width="6"/><circle cx="400" cy="280" r="15" fill="black"/><circle cx="500" cy="280" r="15" fill="black"/><path d="M 300 350 Q 200 400 150 350" fill="none" stroke="black" stroke-width="8"/><polygon points="350,340 380,320 380,360" fill="white" stroke="black" stroke-width="4"/><polygon points="550,340 520,320 520,360" fill="white" stroke="black" stroke-width="4"/></svg>` },
+
+  // COMIDA
   icecream: { name: 'Helado', cat: 'comida', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><polygon points="300,300 500,300 400,520" fill="white" stroke="black" stroke-width="8" stroke-linejoin="round"/><path d="M 280 300 Q 250 220 320 180 Q 280 100 380 90 Q 420 50 480 100 Q 560 90 540 180 Q 600 220 560 300 Z" fill="white" stroke="black" stroke-width="8"/><circle cx="400" cy="80" r="20" fill="#FF6B6B" stroke="black" stroke-width="5"/></svg>` },
-  donut: { name: 'Dona', cat: 'comida', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="300" rx="250" ry="200" fill="white" stroke="black" stroke-width="8"/><ellipse cx="450" cy="300" rx="80" ry="60" fill="white" stroke="black" stroke-width="8"/></svg>` }
+  donut: { name: 'Dona', cat: 'comida', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><ellipse cx="450" cy="300" rx="250" ry="200" fill="white" stroke="black" stroke-width="8"/><ellipse cx="450" cy="300" rx="80" ry="60" fill="white" stroke="black" stroke-width="8"/></svg>` },
+  pizza: { name: 'Pizza', cat: 'comida', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 450 80 L 120 520 L 780 520 Z" fill="white" stroke="black" stroke-width="8" stroke-linejoin="round"/><circle cx="350" cy="350" r="25" fill="white" stroke="black" stroke-width="5"/><circle cx="550" cy="300" r="25" fill="white" stroke="black" stroke-width="5"/><circle cx="450" cy="450" r="25" fill="white" stroke="black" stroke-width="5"/></svg>` },
+  apple: { name: 'Manzana', cat: 'comida', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><path d="M 450 150 Q 350 140 320 180 Q 250 200 250 300 Q 250 420 350 470 Q 400 490 400 460 Q 400 490 450 470 Q 550 420 550 300 Q 550 200 480 180 Q 450 140 400 150 Z" fill="white" stroke="black" stroke-width="8"/><path d="M 450 150 Q 405 100 440 80" fill="none" stroke="black" stroke-width="6"/><ellipse cx="470" cy="90" rx="40" ry="20" fill="white" stroke="black" stroke-width="6" transform="rotate(-20 470 90)"/></svg>` },
+  ball: { name: 'Pelota', cat: 'cosas', svg: `<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg"><circle cx="450" cy="300" r="200" fill="white" stroke="black" stroke-width="8"/><polygon points="450,150 550,250 500,400 400,400 350,250" fill="white" stroke="black" stroke-width="6"/></svg>` }
 };
 
 function renderTemplates() {
@@ -383,8 +421,3 @@ function loadTemplate(key) {
 
 initCanvas();
 renderTemplates();
-
-setTimeout(() => {
-  const firstCard = document.querySelector('.template-card');
-  if (firstCard) firstCard.click();
-}, 300);
