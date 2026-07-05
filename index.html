@@ -10,8 +10,9 @@
 </head>
 <body>
 
-<!-- Pantalla de Inicio (Portada + Corazón Palpitante) -->
+<!-- Pantalla de Inicio (Imagen + Corazón Palpitante) -->
 <div id="welcomeModal" class="welcome-modal">
+  <img src="portada.png" alt="Portada" class="welcome-bg-img">
   <div class="welcome-heart" id="startBtn">
     <i class="fa-solid fa-heart"></i>
     <span class="tap-text">¡Toca!</span>
@@ -25,7 +26,7 @@
     <img src="Min.png" alt="Banner Luna Min" class="banner-img">
   </header>
 
-  <!-- Colores y Pegatinas (Reducción de tamaño aplicada en CSS) -->
+  <!-- Colores y Pegatinas -->
   <div class="palette-container">
     <div id="colorGrid" class="color-row"></div>
     <div id="stickerGrid" class="sticker-row"></div>
@@ -51,7 +52,7 @@
     </div>
   </div>
 
-  <!-- Lienzo (La estrella de la app) -->
+  <!-- Lienzo -->
   <div class="canvas-container">
     <canvas id="paintCanvas" width="900" height="600"></canvas>
   </div>
