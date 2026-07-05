@@ -17,6 +17,67 @@ html, body {
   -webkit-user-select: none;
 }
 
+/* Pantalla de Inicio */
+.welcome-modal {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #FF9ACD, #9D4EDD);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.5s ease;
+}
+.welcome-modal.hidden { display: none; }
+.welcome-content {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 30px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.welcome-banner {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+.welcome-title {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 48px;
+  color: #FF6B6B;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+.welcome-subtitle {
+  font-size: 20px;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+.welcome-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FF9F1C);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  transition: transform 0.2s;
+}
+.welcome-btn:active { transform: scale(0.95); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -27,19 +88,18 @@ html, body {
   gap: 10px;
 }
 
-/* Banner Ancho */
 .app-header { width: 100%; display: flex; justify-content: center; }
 .banner-img {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   height: auto;
-  max-height: 120px;
-  object-fit: cover;
+  max-height: 160px;
+  object-fit: contain;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Paleta (Doble de Tamaño) */
+/* Paleta */
 .palette-container {
   width: 100%;
   background: white;
@@ -69,7 +129,7 @@ html, body {
 .sticker-btn {
   width: 100%;
   aspect-ratio: 1;
-  font-size: 36px; /* Doble de tamaño */
+  font-size: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,15 +202,15 @@ html, body {
   width: 100%;
   max-width: 900px;
   height: auto;
-  aspect-ratio: 3 / 2; /* Mantiene la proporción del lienzo en cualquier pantalla */
+  aspect-ratio: 3 / 2;
   background: white;
   border-radius: 12px;
-  touch-action: none; /* CRÍTICO PARA ANDROID: Evita scroll al dibujar */
+  touch-action: none;
   cursor: crosshair;
 }
 
 /* Botones */
-.action-bar { width: 100%; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.action-bar { width: 100%; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; }
 .main-btn {
   width: 55px;
   height: 55px;
@@ -165,6 +225,25 @@ html, body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 .main-btn:active { transform: scale(0.9); }
+
+/* Botones con texto (Subir/Guardar) */
+.main-btn-text {
+  height: 55px;
+  padding: 0 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 2px solid white;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.main-btn-text:active { transform: scale(0.95); }
+
 .btn-new { background: #FF6B6B; }
 .btn-save { background: #6BCB77; }
 .btn-undo { background: #4D96FF; }
