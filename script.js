@@ -39,41 +39,33 @@ function speak(text) {
 
 // ============ COLORES Y PEGATINAS ============
 const colors = [
-  '#FF0000', '#FF8000', '#FFFF00', '#00FF00',
-  '#00FFFF', '#0000FF', '#8000FF', '#FF00FF',
-  '#8B4513', '#FFFFFF', '#A0A0A0', '#000000'
+  '#FF0000', '#FF8000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF',
+  '#8000FF', '#FF00FF', '#8B4513', '#FFFFFF', '#A0A0A0', '#000000'
 ];
-
 const stickers = ['⭐', '❤️', '😊', '🌸', '🎈', '👑'];
 
 const colorGrid = document.getElementById('colorGrid');
 const stickerGrid = document.getElementById('stickerGrid');
 
-// Renderizar Colores (12 en 3 filas de 4)
 colors.forEach((color, i) => {
   const btn = document.createElement('div');
   btn.className = 'color-btn' + (i === 0 ? ' active' : '');
   btn.style.background = color;
-  btn.dataset.color = color;
   btn.addEventListener('click', () => {
     document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentColor = color;
     document.getElementById('sizePreview').style.background = color;
-    if (currentTool === 'sticker') {
-      document.querySelector('[data-tool="brush"]').click();
-    }
+    if (currentTool === 'sticker') document.querySelector('[data-tool="brush"]').click();
     playSound(600, 0.05);
   });
   colorGrid.appendChild(btn);
 });
 
-// Renderizar Pegatinas (6 en 2 filas de 3)
 stickers.forEach((st, i) => {
   const btn = document.createElement('div');
   btn.className = 'sticker-btn' + (i === 0 ? ' active' : '');
   btn.textContent = st;
-  btn.dataset.sticker = st;
   btn.addEventListener('click', () => {
     document.querySelectorAll('.sticker-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -107,7 +99,7 @@ function undo() {
   }
 }
 
-// ============ DIBUJO Y PEGATINAS ============
+// ============ DIBUJO Y PEGATINAS (OPTIMIZADO ANDROID) ============
 function getPos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
@@ -118,7 +110,7 @@ function getPos(e) {
 }
 
 function startDraw(e) {
-  e.preventDefault();
+  e.preventDefault(); // Crítico para Android
   const pos = getPos(e);
   
   if (currentTool === 'bucket') {
@@ -146,7 +138,7 @@ function startDraw(e) {
 
 function draw(e) {
   if (!isDrawing) return;
-  e.preventDefault();
+  e.preventDefault(); // Crítico para Android
   const pos = getPos(e);
   
   ctx.beginPath();
@@ -218,9 +210,7 @@ document.querySelectorAll('.tool-btn').forEach(btn => {
     currentTool = btn.dataset.tool;
     
     const name = btn.dataset.name;
-    speak(name);
-    playSound(800, 0.1);
-    showToast(name, 'fa-hand-pointer');
+    speak(name); playSound(800, 0.1); showToast(name, 'fa-hand-pointer');
     
     if (currentTool === 'sticker') canvas.style.cursor = 'copy';
     else if (currentTool === 'eraser') canvas.style.cursor = 'grab';
@@ -230,12 +220,11 @@ document.querySelectorAll('.tool-btn').forEach(btn => {
 });
 
 // ============ TAMAÑO Y BOTONES ============
-const sizeSlider = document.getElementById('sizeSlider');
-const sizePreview = document.getElementById('sizePreview');
-sizeSlider.addEventListener('input', (e) => {
+document.getElementById('sizeSlider').addEventListener('input', (e) => {
   brushSize = parseInt(e.target.value);
   const ps = Math.min(brushSize, 36);
-  sizePreview.style.width = ps + 'px'; sizePreview.style.height = ps + 'px';
+  document.getElementById('sizePreview').style.width = ps + 'px';
+  document.getElementById('sizePreview').style.height = ps + 'px';
 });
 
 document.getElementById('undoBtn').addEventListener('click', undo);
@@ -274,54 +263,41 @@ document.getElementById('imageLoader').addEventListener('change', (e) => {
 const effectsLayer = document.getElementById('effectsLayer');
 
 document.getElementById('fireworksBtn').addEventListener('click', () => {
-  speak('¡Fuegos artificiales!');
-  playSound(500, 0.5);
-  for (let i = 0; i < 5; i++) {
-    setTimeout(() => createFirework(), i * 200);
-  }
+  speak('¡Fuegos artificiales!'); playSound(500, 0.5);
+  for (let i = 0; i < 5; i++) setTimeout(() => createFirework(), i * 200);
 });
 
 document.getElementById('balloonsBtn').addEventListener('click', () => {
-  speak('¡Globos!');
-  playSound(700, 0.3);
-  createBalloon();
+  speak('¡Globos!'); playSound(700, 0.3); createBalloon();
 });
 
 function createFirework() {
   const x = Math.random() * 100;
-  const y = Math.random() * 50 + 10; 
+  const y = Math.random() * 50 + 10;
   const fwColors = ['#FF0000', '#FFD700', '#00FF00', '#00FFFF', '#FF00FF', '#FFA500'];
   const color = fwColors[Math.floor(Math.random() * fwColors.length)];
   
   for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
     p.className = 'firework-particle';
-    p.style.left = x + 'vw';
-    p.style.top = y + 'vh';
-    p.style.background = color;
-    
+    p.style.left = x + 'vw'; p.style.top = y + 'vh'; p.style.background = color;
     const angle = (Math.PI * 2 * i) / 30;
     const distance = 80 + Math.random() * 50;
     p.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
     p.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
-    
-    effectsLayer.appendChild(p);
-    setTimeout(() => p.remove(), 1000);
+    effectsLayer.appendChild(p); setTimeout(() => p.remove(), 1000);
   }
 }
 
 function createBalloon() {
   const bColors = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#FF6BCB', '#9D4EDD', '#FF9F1C'];
   const color = bColors[Math.floor(Math.random() * bColors.length)];
-  
   const balloon = document.createElement('div');
   balloon.className = 'balloon';
   balloon.style.left = Math.random() * 90 + 'vw';
   balloon.style.background = color;
   balloon.style.animationDuration = (4 + Math.random() * 3) + 's';
-  
-  effectsLayer.appendChild(balloon);
-  setTimeout(() => balloon.remove(), 7000);
+  effectsLayer.appendChild(balloon); setTimeout(() => balloon.remove(), 7000);
 }
 
 // ============ TOAST Y CONFETI ============
