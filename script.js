@@ -68,8 +68,6 @@ colors.forEach((color, i) => {
   const mobPencil = document.createElement('div');
   mobPencil.className = 'pencil mobile';
   mobPencil.style.setProperty('--p-color', color);
-  mobPencil.style.transform = 'scale(0.7)';
-  mobPencil.style.margin = '-5px';
   if (i === 0) mobPencil.classList.add('active');
   mobPencil.dataset.color = color;
   mobPencil.innerHTML = `<div class="pencil-tip"></div><div class="pencil-body"></div><div class="pencil-metal"></div><div class="pencil-eraser"></div>`;
