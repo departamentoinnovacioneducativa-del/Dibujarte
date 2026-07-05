@@ -15,7 +15,6 @@ let currentSticker = '⭐';
 // ============ PANTALLA DE INICIO (CORAZÓN) ============
 document.getElementById('startBtn').addEventListener('click', () => {
   document.getElementById('welcomeModal').classList.add('hidden');
-  // Iniciar audio tras interacción del usuario (requerido en Android)
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
